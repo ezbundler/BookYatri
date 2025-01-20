@@ -12,14 +12,23 @@
       "name": "akash",
       "email": "akash@gmail.com",
       "password": "admin@1234",
-      "phone":"8235552552"
+      "phone": "8235552552",
+      "age": "25",
+      "address": "n-312, Malwa County Indore"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "testing",
       "email": "test@mail.com",
       "password": "123456",
-      "phone":"7899456810"
+      "phone": "7899456810"
+    },
+    {
+      "id": 4,
+      "name": "rahul",
+      "email": "rahul@gmail.com",
+      "password": "1234",
+      "role": "user"
     }
   ],
   "buses": [
@@ -522,5 +531,15 @@
       ]
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "id": "1234",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U2",
+        "U3"
+      ],
+      "busId": "1"
+    }
+  ]
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import jwt from 'jwt-encode';
 import Navbar from '../components/Navbar';
+// import { stringify } from 'postcss';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +39,9 @@ const secretKey = 'your-secret-key';
 const token = jwt(payload, secretKey);
 console.log(token, "token generated");
 localStorage.setItem('authToken', token);
-localStorage.setItem('userData', user);
+localStorage.setItem('userData', JSON.stringify(user));
+
+// localStorage.setItem('userData', user);
       
         navigate('/home');  
       } else {

@@ -9,6 +9,7 @@ import SignUpPage from './pages/Signup';
 // import ProtectedRoute from '../utils.js/ProtectedRoute';
 import Protectedroute from './utils.js/ProtectedRoute';
 import SeatBooking from './pages/BookingPage';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
           <Protectedroute>
 
             <SeatBooking  />
+          </Protectedroute>
+        }/>
+        <Route path="/profile" element={
+          <Protectedroute>
+
+            <Profile  />
           </Protectedroute>
         }/>
       </Routes>
