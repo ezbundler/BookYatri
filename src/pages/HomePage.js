@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroIMG from "../images/conductor.png";
 import Navbar from "../components/Navbar";
+import AdminHome from "../components/AdminHomePage";
 const HomePage = () => {
   const [busList, setBusList] = useState();
+  const [user, setUser] = useState();
   const navigate = useNavigate();
   const handleBooking = (id) => {
-    alert(`${id}you have clicked`);
+    // alert(`${id}you have clicked`);
     navigate(`/seatBooking/${id}`);
   };
 
@@ -20,13 +22,28 @@ const HomePage = () => {
       console.log(buses, "busses");
       setBusList(buses);
     };
-
+    const fetchUser = async()=>{
+        try {
+        const userData = localStorage.getItem('userData');
+        let parsedUser;
+        if (userData) {
+            parsedUser = JSON.parse(userData);
+            setUser(parsedUser);
+            console.log(parsedUser,"user")
+          }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    }
+fetchUser();
     LoadBuses();
+
   }, []);
   return (
     <>
       <Navbar />
-      <div className="lg:h-[89vh]  flex flex-col lg:flex-row items-center justify-between bg-orange-100 dark:bg-customdark-gradient p-8">
+      {
+        user?.role ==='user' ? <div className="lg:h-[89vh]  flex flex-col lg:flex-row items-center justify-between bg-orange-100 dark:bg-customdark-gradient p-8">
       
         <div className="flex flex-col items-center justify-center border-4 rounded-lg border-yellow-500 dark:border-purple-600 lg:h-full lg:ml-10 space-y-6 w-full lg:w-[60%] py-4">
           <h1 className="text-4xl font-bold mb-4 text-center text-black dark:text-white">
@@ -74,7 +91,10 @@ const HomePage = () => {
             }}
           />
         </div>
-      </div>
+      </div>:
+<AdminHome/>
+      }
+     
     </>
   );
 };

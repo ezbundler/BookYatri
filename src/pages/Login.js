@@ -43,7 +43,7 @@ localStorage.setItem('userData', JSON.stringify(user));
 
 // localStorage.setItem('userData', user);
       
-        navigate('/home');  
+        navigate(`/home`);  
       } else {
         setError('Invalid email or password');
       }

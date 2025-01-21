@@ -5,7 +5,8 @@
       "name": "John Doe",
       "email": "john@example.com",
       "password": "password123",
-      "phone": "123456789"
+      "phone": "123456789",
+      "role": "user"
     },
     {
       "id": "2",
@@ -13,7 +14,8 @@
       "email": "akash@gmail.com",
       "password": "admin@1234",
       "phone": "8235552552",
-      "age": "25",
+      "age": "26",
+      "role": "admin",
       "address": "n-312, Malwa County Indore"
     },
     {
@@ -24,11 +26,24 @@
       "phone": "7899456810"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "rahul",
       "email": "rahul@gmail.com",
       "password": "1234",
-      "role": "user"
+      "role": "user",
+      "phone": "1234567892",
+      "age": "",
+      "address": ""
+    },
+    {
+      "id": "5",
+      "name": "testing123",
+      "email": "testing@testing.com",
+      "password": "testing",
+      "role": "user",
+      "phone": "1234567892",
+      "age": "25",
+      "address": ""
     }
   ],
   "buses": [
@@ -105,7 +120,7 @@
         {
           "name": "U14",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U15",
@@ -334,7 +349,7 @@
         {
           "name": "U10",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U11",
@@ -349,7 +364,7 @@
         {
           "name": "U13",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U14",
@@ -389,7 +404,7 @@
         {
           "name": "U21",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U22",
@@ -540,6 +555,23 @@
         "U3"
       ],
       "busId": "1"
+    },
+    {
+      "id": "8002",
+      "useremail": "testing@testing.com",
+      "setno": [
+        "U21"
+      ],
+      "busId": "2"
+    },
+    {
+      "id": "9888",
+      "useremail": "testing@testing.com",
+      "setno": [
+        "U14"
+      ],
+      "busId": "1",
+      "date": 1737409148454
     }
   ]
 }

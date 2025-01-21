@@ -89,7 +89,7 @@ const Profile = () => {
         <div className="p-6 max-w-lg mx-auto bg-white shadow-md rounded-md md:max-w-2xl lg:max-w-4xl">
           <h2 className="text-2xl font-bold mb-4 text-center">Profile Details</h2>
           <div className="space-y-3">
-            {['name', 'email', 'phone', 'age', 'address'].map((field) => (
+            {['name', 'email', 'phone', 'age', 'address']?.map((field) => (
               <div key={field} className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <label className="block font-medium capitalize md:w-1/4">{field}</label>
                 {isEditing ? (
@@ -127,16 +127,17 @@ const Profile = () => {
           <Modal
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
+
             contentLabel="Booking Details"
             className="bg-white p-6 max-w-lg mx-auto shadow-md rounded-md w-11/12 sm:w-full"
           >
             <h2 className="text-xl font-bold mb-4 text-center">My Bookings</h2>
             {bookings.length > 0 ? (
               <ul className="space-y-2">
-                {bookings.map((booking) => (
+                {bookings?.map((booking) => (
                   <li key={booking.id} className="border p-2 rounded">
                     <p><strong>Bus:</strong> {booking.id}</p>
-                    <p><strong>Seat:</strong> {booking.seatno.map((b)=>(<>{b},</>))}</p>
+                    <p><strong>Seat:</strong> {booking.seatno?.map((b)=>(<>{b},</>))}</p>
                     <p><strong>Date:</strong> {booking.date}</p>
                   </li>
                 ))}

@@ -47,7 +47,7 @@ const Navbar = () => {
 
       <div className='flex gap-6'>
         <div className="hidden lg:flex items-center space-x-6">
-          <Link to="/home"><button className="text-white">Home</button></Link>
+          <Link to ='/home'><button className="text-white">Home</button></Link>
           {!userLoggedIn && <>
           
           <Link to="/login"><button className="block text-white py-2">Login</button></Link>

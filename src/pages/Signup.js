@@ -35,7 +35,7 @@ const SignUpPage = () => {
       }
 
       const newUser = {
-        id: users.length + 1,
+        id: (users.length + 1).toString(),
         name,
         email,
         password,
