@@ -37,8 +37,8 @@ const RotatingTaglines = () => {
 
   return (
     <div className="flex justify-center flex-col items-center h-40 sm:h-60 lg:h-80 p-0">
-      <div className="text-xl md:text-3xl lg:text-3xl xl:text-4xl text-black dark:text-white">
-        Welcome to <span className="font-bold">Book Yatri</span>
+      <div className="text-xl md:text-3xl lg:text-3xl xl:text-4xl text-bold text-black ">
+        Welcome to Book Yatri
       </div>
       <motion.div
         key={currentIndex}

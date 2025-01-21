@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/logo3.png';
-import ThemeToggler from '../utils.js/ThemeToggler';
+
 import { motion } from 'framer-motion';
 import defaultProfileImage from '../images/profile.jpg';
 
@@ -40,7 +40,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-orange-500 dark:bg-black border-b-4 border-purple-600 dark:border-orange-600 p-4 flex justify-between items-center shadow-md relative z-10">
+    <nav className="bg-slate-500  border-b-4 border-blue-400 p-4 flex justify-between items-center shadow-md relative z-10">
       <Link to="/" className="flex items-center">
         <img src={logo} alt="BookYatri Logo" className="h-10" />
       </Link>
@@ -54,7 +54,7 @@ const Navbar = () => {
          <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
         </>
         }
-          <ThemeToggler />
+          {/* <ThemeToggler /> */}
         </div>
 
         {userLoggedIn && (
@@ -71,17 +71,17 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 shadow-md rounded-md py-2 z-20"
+                className="absolute right-0 mt-2 w-40 bg-slate-500 border border-blue-400 shadow-md rounded-md py-2 z-20"
               >
                 <button
                   onClick={() => navigate('/profile')}
-                  className="block w-full text-left px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500 hover:bg-gray-300 "
                 >
                   Profile
                 </button>
                 <button
                   onClick={handleSignOut}
-                  className="block w-full text-left px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500  hover:bg-gray-300 "
                 >
                   Sign Out
                 </button>
@@ -99,7 +99,7 @@ const Navbar = () => {
         </div>
 
         <motion.div
-          className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-full left-0 bg-orange-500 w-full border-t-2 border-orange-700 p-4 gap-4`}
+          className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-full left-0 bg-slate-500 w-full border-t-2 p-4 gap-4`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -113,7 +113,7 @@ const Navbar = () => {
            <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
           </>
           }
-          <ThemeToggler />
+          {/* <ThemeToggler /> */}
         </motion.div>
       </div>
     </nav>

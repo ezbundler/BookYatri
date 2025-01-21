@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Modal from 'react-modal';
+
 import Navbar from '../components/Navbar';
+import ModalUtil from '../utils.js/Modal';
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -81,7 +82,9 @@ const Profile = () => {
       console.error('Error updating user details:', error);
     }
   };
-
+const handleModalClose = ()=>{
+  setIsModalOpen(false);
+}
   return (
     <>
       <Navbar />
@@ -124,9 +127,9 @@ const Profile = () => {
             </button>
           </div>
 
-          <Modal
+          <ModalUtil
             isOpen={isModalOpen}
-            onRequestClose={() => setIsModalOpen(false)}
+            onClose={handleModalClose}
 
             contentLabel="Booking Details"
             className="bg-white p-6 max-w-lg mx-auto shadow-md rounded-md w-11/12 sm:w-full"
@@ -137,7 +140,7 @@ const Profile = () => {
                 {bookings?.map((booking) => (
                   <li key={booking.id} className="border p-2 rounded">
                     <p><strong>Bus:</strong> {booking.id}</p>
-                    <p><strong>Seat:</strong> {booking.seatno?.map((b)=>(<>{b},</>))}</p>
+                    <p><strong>Seat:</strong> {booking.seatno?.map((b)=>(<>{b}</>))}</p>
                     <p><strong>Date:</strong> {booking.date}</p>
                   </li>
                 ))}
@@ -145,13 +148,13 @@ const Profile = () => {
             ) : (
               <p className="text-center">No bookings found.</p>
             )}
-            <button
+            {/* <button
               onClick={() => setIsModalOpen(false)}
               className="mt-4 px-4 py-2 bg-red-500 text-white rounded w-full"
             >
               Close
-            </button>
-          </Modal>
+            </button> */}
+          </ModalUtil>
         </div>
       </div>
     </>

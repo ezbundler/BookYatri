@@ -65,7 +65,7 @@ console.log(newUser,"newuser")
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex flex-col items-center justify-center bg-orange-100">
+      <div className="min-h-screen flex flex-col items-center justify-center ">
         <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
         <form className="space-y-4 w-80" onSubmit={handleSignUp}>
           <input
@@ -103,7 +103,7 @@ console.log(newUser,"newuser")
           {error && <p className="text-red-500">{error}</p>}
           <button
             type="submit"
-            className="bg-orange-500 text-white p-2 rounded w-full"
+            className="bg-slate-400 hover:bg-blue-400 text-white p-2 rounded w-full"
             disabled={loading}
           >
             {loading ? 'Signing Up...' : 'Sign Up'}

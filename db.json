@@ -14,7 +14,7 @@
       "email": "akash@gmail.com",
       "password": "admin@1234",
       "phone": "8235552552",
-      "age": "26",
+      "age": "23",
       "role": "admin",
       "address": "n-312, Malwa County Indore"
     },
@@ -43,12 +43,47 @@
       "role": "user",
       "phone": "1234567892",
       "age": "25",
+      "address": "madhya pradesh"
+    },
+    {
+      "id": "6",
+      "name": "vaibhav singh",
+      "email": "vaibhav@gmail.com",
+      "password": "Vai@123",
+      "role": "user",
+      "phone": "",
+      "age": "",
       "address": ""
+    },
+    {
+      "id": "7",
+      "name": "rahul",
+      "email": "rahul@testing.com",
+      "password": "testing",
+      "role": "user",
+      "phone": "1234567892",
+      "age": "24",
+      "address": "indore , india"
+    },
+    {
+      "id": "8",
+      "name": "test1",
+      "email": "test1@mail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "9",
+      "name": "sandeep",
+      "email": "sandeep@mail.com",
+      "password": "123456",
+      "role": "admin"
     }
   ],
   "buses": [
     {
       "id": "1",
+      "name": "Indore-Bhopal Express",
       "route": "Indore to Bhopal",
       "departure": "2025-01-20T10:00:00",
       "UpperSeats": [
@@ -85,7 +120,7 @@
         {
           "name": "U7",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U8",
@@ -105,17 +140,17 @@
         {
           "name": "U11",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U12",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U13",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U14",
@@ -150,7 +185,7 @@
         {
           "name": "U20",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U21",
@@ -212,7 +247,7 @@
         {
           "name": "L8",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "L9",
@@ -222,12 +257,12 @@
         {
           "name": "L10",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "L11",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "L12",
@@ -298,13 +333,14 @@
     },
     {
       "id": "2",
+      "name": "Indore-Ujjain Express",
       "route": "Indore to Ujjain",
       "departure": "2025-01-20T10:00:00",
       "UpperSeats": [
         {
           "name": "U1",
           "side": "left",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U2",
@@ -549,6 +585,7 @@
   "bookings": [
     {
       "id": "1234",
+      "date": "18/01/2025",
       "useremail": "rahul@gmail.com",
       "seatno": [
         "U2",
@@ -557,21 +594,101 @@
       "busId": "1"
     },
     {
-      "id": "8002",
-      "useremail": "testing@testing.com",
-      "setno": [
-        "U21"
-      ],
-      "busId": "2"
-    },
-    {
-      "id": "9888",
-      "useremail": "testing@testing.com",
-      "setno": [
-        "U14"
+      "id": "6261",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U20"
       ],
       "busId": "1",
-      "date": 1737409148454
+      "date": "22/01/2025"
+    },
+    {
+      "id": "1760",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U11"
+      ],
+      "busId": "1",
+      "date": "27/01/2025"
+    },
+    {
+      "id": "1352",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U17"
+      ],
+      "busId": "1",
+      "date": "29/01/2025"
+    },
+    {
+      "id": "2929",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U11"
+      ],
+      "busId": "1",
+      "date": "21/01/2025"
+    },
+    {
+      "id": "3450",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U11"
+      ],
+      "busId": "1",
+      "date": "23/01/2025"
+    },
+    {
+      "id": "2508",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U17"
+      ],
+      "busId": "1",
+      "date": "25/01/2025"
+    },
+    {
+      "id": "6653",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "L1",
+        "U12",
+        "U17"
+      ],
+      "busId": "1",
+      "date": "24/01/2025"
+    },
+    {
+      "id": "5537",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U3",
+        "U4",
+        "U5"
+      ],
+      "busId": "1",
+      "date": "21/01/2025"
+    },
+    {
+      "id": "5229",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U1",
+        "U3",
+        "U5"
+      ],
+      "busId": "1",
+      "date": "25/02/2025"
+    },
+    {
+      "id": "1665",
+      "useremail": "rahul@testing.com",
+      "seatno": [
+        "U10",
+        "U16"
+      ],
+      "busId": "1",
+      "date": "25/02/2025"
     }
   ]
 }

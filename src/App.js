@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Correct import for React Router v6
 import HomePage from './pages/HomePage';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import HeroPage from './pages/HeroPage';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/Login';
@@ -13,8 +14,8 @@ import Profile from './pages/Profile';
 
 function App() {
   return (
-    <div className='min-h-screen bg-custom-gradient dark:bg-customdark-gradient'>
-
+    <div className='min-h-screen bg-slate-200'>
+  <ToastContainer theme='colored'/>
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
