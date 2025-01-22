@@ -40,7 +40,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-slate-500  border-b-4 border-blue-400 p-4 flex justify-between items-center shadow-md relative z-10">
+    <nav className="bg-red-600  border-b-4 border-yellow-400 p-4 flex justify-between items-center shadow-md relative z-10">
       <Link to="/" className="flex items-center">
         <img src={logo} alt="BookYatri Logo" className="h-10" />
       </Link>

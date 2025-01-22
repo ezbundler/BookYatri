@@ -44,23 +44,25 @@ const HomePage = () => {
         <>
           <div className="lg:h-[89vh]  flex flex-col lg:flex-row items-center justify-between p-8">
             <div className="flex flex-col items-center justify-center rounded-lg lg:h-full lg:ml-10 space-y-6 w-full lg:w-[60%] py-4">
-              <h1 className="text-4xl font-bold mb-4 text-center text-slate-500">
+              <h1 className="text-4xl font-bold mb-4 text-center text-red-600">
                 Welcome to Your Hero Page
               </h1>
 
               {busList?.map((bus, index) => (
                 <div
                   key={index}
-                  className="bg-slate-200 border border-slate-700 p-6 rounded-lg shadow-lg w-full max-w-3xl flex justify-between items-center text-center"
+                  className="bg-slate-200 border border-red-700 p-6 rounded-lg shadow-lg w-full max-w-3xl flex justify-between items-center text-center"
                 >
-                  <h3 className="text-xl font-semibold text-slate-500 ">
+                  <h3 className="text-xl font-semibold text-red-600 ">
                     {bus?.route}
                   </h3>
                   <button
                     onClick={() => handleBooking(bus.id)}
-                    className="mt-4 px-6 py-2 rounded bg-slate-500 text-white 
-           hover:bg-blue-400  
+                    className="mt-4 px-6 py-2 rounded bg-red-600 text-white 
+           hover:bg-slate-200  
+           hover:text-red-600
            hover:border-2 
+           hover:border-red-600
           
            transition-all duration-500 ease-in-out"
                   >
