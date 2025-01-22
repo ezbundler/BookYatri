@@ -110,9 +110,9 @@ const AdminHomePage = () => {
               <div
                 onClick={() => navigate(`/seatBooking/${bus.id}`)}
                 key={bus.id}
-                className="bg-slate-300 shadow-md p-4 cursor-pointer hover:bg-slate-100 rounded-lg"
+                className="bg-slate-200 shadow-md p-4 cursor-pointer hover:bg-slate-100 hover:border-2 hover:border-yellow-300 rounded-lg"
               >
-                <h2 className="text-xl font-semibold text-center text-slate-700  mb-2">
+                <h2 className="text-xl font-semibold text-center text-red-600  mb-2">
                   <FontAwesomeIcon icon={faBus} />
                   {bus.name || "Bus Name"}
                 </h2>
@@ -148,7 +148,7 @@ const AdminHomePage = () => {
           <h2 className="text-3xl font-bold mb-4">User </h2>
           <button
             onClick={openUserListModal}
-            className="mb-4 hover:bg-blue-500 hover:text-white text-slate-400 p-2 rounded"
+            className="mb-4 hover:bg-yellow-500 hover:text-white text-slate-400 p-2 rounded"
           >
             View All Users
           </button>
@@ -157,7 +157,7 @@ const AdminHomePage = () => {
           {users.slice(0, 4).map((user) => (
             <div
               key={user.id}
-              className="bg-white shadow-md p-4 rounded-lg cursor-pointer"
+              className="bg-white border-2 border-yellow-300 hover:border-red-600 shadow-md p-4 rounded-lg cursor-pointer"
               onClick={() => handleUserClick(user)}
             >
               <h3 className="text-lg font-semibold">{user.name}</h3>

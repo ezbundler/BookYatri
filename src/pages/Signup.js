@@ -66,7 +66,7 @@ console.log(newUser,"newuser")
     <>
       <Navbar />
       <div className="min-h-screen flex flex-col items-center justify-center ">
-        <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-3xl text-red-600 font-bold mb-4">Sign Up</h2>
         <form className="space-y-4 w-80" onSubmit={handleSignUp}>
           <input
             type="text"
@@ -103,7 +103,7 @@ console.log(newUser,"newuser")
           {error && <p className="text-red-500">{error}</p>}
           <button
             type="submit"
-            className="bg-slate-400 hover:bg-blue-400 text-white p-2 rounded w-full"
+            className="bg-red-600 hover:bg-yellow-400 text-white p-2 rounded w-full"
             disabled={loading}
           >
             {loading ? 'Signing Up...' : 'Sign Up'}
@@ -113,7 +113,7 @@ console.log(newUser,"newuser")
           <p>
             Already connected to the BookYatri?{' '}
             <Link to="/login">
-              <span className="text-orange-600 hover:text-purple-600">
+              <span className="text-orange-600 hover:text-yellow-400">
                 Click here
               </span>
             </Link>{' '}

@@ -689,6 +689,26 @@
       ],
       "busId": "1",
       "date": "25/02/2025"
+    },
+    {
+      "id": "8784",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U7",
+        "U10",
+        "U2",
+        "U3"
+      ],
+      "busId": "1",
+      "date": "16/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
     }
   ]
 }

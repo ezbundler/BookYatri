@@ -58,7 +58,7 @@ localStorage.setItem('userData', JSON.stringify(user));
     <>
     <Navbar/>
     <div className="min-h-screen flex flex-col items-center justify-center ">
-      <h2 className="text-3xl font-bold mb-4 text-black">Login</h2>
+      <h2 className="text-3xl font-bold mb-4 text-red-600 ">Login</h2>
       <form className="space-y-4 w-80" onSubmit={handleLogin}>
         <input
           type="email"
@@ -77,13 +77,13 @@ localStorage.setItem('userData', JSON.stringify(user));
         {error && <p className="text-red-500">{error}</p>}
         <button
           type="submit"
-          className="bg-slate-400 text-white p-2 rounded w-full hover:bg-blue-400"
+          className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
           disabled={loading}
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      <div className='mt-2 text-black '> <p>New to the BookYatri? <Link to='/signup'><span className='text-orange-600 hover:text-purple-600'>Click here </span></Link> to Sign up.</p></div>
+      <div className='mt-2 text-black '> <p>New to the BookYatri? <Link to='/signup'><span className='text-orange-600 hover:text-yellow-400'>Click here </span></Link> to Sign up.</p></div>
     </div>
     </>
   );
