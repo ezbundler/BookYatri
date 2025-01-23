@@ -16,7 +16,8 @@
       "phone": "8235552552",
       "age": "23",
       "role": "admin",
-      "address": "n-312, Malwa County Indore"
+      "address": "n-312, Malwa County Indore",
+      "profile": "backpacker2"
     },
     {
       "id": "3",
@@ -32,8 +33,9 @@
       "password": "1234",
       "role": "user",
       "phone": "1234567892",
-      "age": "",
-      "address": ""
+      "age": "27",
+      "address": "",
+      "profile": "backpacker"
     },
     {
       "id": "5",
@@ -584,113 +586,6 @@
   ],
   "bookings": [
     {
-      "id": "1234",
-      "date": "18/01/2025",
-      "useremail": "rahul@gmail.com",
-      "seatno": [
-        "U2",
-        "U3"
-      ],
-      "busId": "1"
-    },
-    {
-      "id": "6261",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U20"
-      ],
-      "busId": "1",
-      "date": "22/01/2025"
-    },
-    {
-      "id": "1760",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U11"
-      ],
-      "busId": "1",
-      "date": "27/01/2025"
-    },
-    {
-      "id": "1352",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U17"
-      ],
-      "busId": "1",
-      "date": "29/01/2025"
-    },
-    {
-      "id": "2929",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U11"
-      ],
-      "busId": "1",
-      "date": "21/01/2025"
-    },
-    {
-      "id": "3450",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U11"
-      ],
-      "busId": "1",
-      "date": "23/01/2025"
-    },
-    {
-      "id": "2508",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U17"
-      ],
-      "busId": "1",
-      "date": "25/01/2025"
-    },
-    {
-      "id": "6653",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "L1",
-        "U12",
-        "U17"
-      ],
-      "busId": "1",
-      "date": "24/01/2025"
-    },
-    {
-      "id": "5537",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U3",
-        "U4",
-        "U5"
-      ],
-      "busId": "1",
-      "date": "21/01/2025"
-    },
-    {
-      "id": "5229",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U1",
-        "U3",
-        "U5"
-      ],
-      "busId": "1",
-      "date": "25/02/2025"
-    },
-    {
-      "id": "1665",
-      "useremail": "rahul@testing.com",
-      "seatno": [
-        "U10",
-        "U16"
-      ],
-      "busId": "1",
-      "date": "25/02/2025"
-    },
-    {
       "id": "8784",
       "useremail": "rahul@gmail.com",
       "seatno": [
@@ -708,6 +603,104 @@
         "adhaarCardNo": "123456789101",
         "phoneNumber": "1234567890",
         "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "3130",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U3",
+        "U13",
+        "L3",
+        "L13",
+        "L14",
+        "L18"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "2122",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U8",
+        "U11",
+        "U14",
+        "U15",
+        "U17"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "vaibhav singh",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "vaibhav@gmail.com"
+      }
+    },
+    {
+      "id": "2683",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U2",
+        "U10",
+        "U9"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "1823",
+      "useremail": "test1@mail.com",
+      "seatno": [
+        "U5",
+        "U19",
+        "U21"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "Ronit roy",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "ronit@gmail.com"
+      }
+    },
+    {
+      "id": "5312",
+      "useremail": "test1@mail.com",
+      "seatno": [
+        "U12"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "Ronit roy",
+        "age": "24",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "ronit@gmail.com"
       }
     }
   ]

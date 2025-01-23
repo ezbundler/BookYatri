@@ -10,6 +10,7 @@ import {
   faChair,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalUtil from "../utils.js/Modal";
+import ProfileAvatar from "./ProfileAvatar";
 
 const AdminHomePage = () => {
   const [buses, setBuses] = useState([]);
@@ -35,6 +36,7 @@ const AdminHomePage = () => {
   };
 
   const handleUserClick = (user) => {
+    setIsUserListModalOpen(false);
     setSelectedUser(user);
   };
 
@@ -153,46 +155,49 @@ const AdminHomePage = () => {
             View All Users
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-4">
-          {users.slice(0, 4).map((user) => (
-            <div
-              key={user.id}
-              className="bg-white border-2 border-yellow-300 hover:border-red-600 shadow-md p-4 rounded-lg cursor-pointer"
-              onClick={() => handleUserClick(user)}
-            >
-              <h3 className="text-lg font-semibold">{user.name}</h3>
-              <p>{user.email}</p>
-              <p>{user.phone}</p>
-            </div>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 gap-6">
+  {users.slice(0, 4).map((user) => (
+    <div
+      key={user.id}
+      className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
+      onClick={() => handleUserClick(user)}
+    >
+        <ProfileAvatar keyword={user?.profile || "default"} width="100px" height='100px' />
+
+      <div className="flex flex-col items-center text-center">
+      <h3 className="text-xl font-bold text-gray-800 mb-2">{user.name}</h3>
+      <p className="text-gray-600 text-sm mb-1">{user.email}</p>
+      <p className="text-gray-600 text-sm">{user.phone}</p>
+      </div>
+     
+    </div>
+  ))}
+</div>
+
       </div>
 
       <ModalUtil isOpen={isUserListModalOpen} onClose={closeUserListModal}>
-        <div className="  flex justify-center items-center h-[80%] overflow-auto">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-3/4">
-            <h2 className="text-xl font-bold mb-4">All Users</h2>
-            <div className="grid grid-cols-1 gap-4">
-              {users.map((user) => (
-                <div
-                  key={user.id}
-                  className="bg-white shadow-md p-4 rounded-lg cursor-pointer"
-                  onClick={() => handleUserClick(user)}
-                >
-                  <h3 className="text-lg font-semibold">{user.name}</h3>
-                  <p>{user.email}</p>
-                </div>
-              ))}
-            </div>
-            {/* <button
-              onClick={closeUserListModal}
-              className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
-            >
-              Close
-            </button> */}
-          </div>
-        </div>
+      <div className="grid grid-cols-1 gap-6">
+  {users?.map((user) => (
+    <div
+    key={user.id}
+    className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
+    onClick={() => handleUserClick(user)}
+  >
+      <ProfileAvatar keyword={user?.profile || "default"} width="100px" height='100px' />
+
+    <div className="flex flex-col items-center text-center">
+    <h3 className="text-xl font-bold text-gray-800 mb-2">{user.name}</h3>
+    <p className="text-gray-600 text-sm mb-1">{user.email}</p>
+    <p className="text-gray-600 text-sm">{user.phone}</p>
+    </div>
+   
+  </div>
+  ))}
+</div>
       </ModalUtil>
+
+
 
       {selectedUser && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">

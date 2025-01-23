@@ -1,9 +1,9 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import heroIMG from '../images/logo1.png';  
+import heroMP4 from '../images/heroMP4.mp4';  
 import RotatingTaglines from '../components/Taglines';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
 const LandingPage = () => {
   return (
@@ -17,22 +17,26 @@ const LandingPage = () => {
  
 </div>
 
-  <div className="second-half  lg:w-1/2 w-full p-4 flex justify-center items-center">
-  
-    <motion.img
-        src={heroIMG}
-        alt="BookYatri Logo"
-        className="text-white text-2xl h-[50vh] lg:h-[100%]"
-        animate={{
-          y: [0, 10, -10, 0], 
-        }}
-        transition={{
-          repeat: Infinity, 
-          duration: 3, 
-          ease: 'easeInOut', 
-        }}
-      />
-  </div>
+<div className="second-half lg:w-1/2 w-full p-4 flex justify-center items-center">
+  <video
+    src={heroMP4} // Use your MP4 file here
+    className="text-white text-2xl h-[50vh] lg:h-[100%]"
+    autoPlay
+    loop
+    muted
+    // animate={{
+    //   y: [0, 10, -10, 0], 
+    // }}
+    // transition={{
+    //   repeat: Infinity, 
+    //   duration: 3, 
+    //   ease: 'easeInOut', 
+    // }}
+  >
+    Your browser does not support the video tag.
+  </video>
+</div>
+
 </div>
 
 

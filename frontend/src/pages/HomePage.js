@@ -51,18 +51,18 @@ const HomePage = () => {
               {busList?.map((bus, index) => (
                 <div
                   key={index}
-                  className="bg-slate-200 border border-red-700 p-6 rounded-lg shadow-lg w-full max-w-3xl flex justify-between items-center text-center"
+                  className="bg-slate-200 border border-red-600 p-6 rounded-lg shadow-lg w-full max-w-3xl flex justify-between items-center text-center"
                 >
                   <h3 className="text-xl font-semibold text-red-600 ">
                     {bus?.route}
                   </h3>
                   <button
                     onClick={() => handleBooking(bus.id)}
-                    className="mt-4 px-6 py-2 rounded bg-red-600 text-white 
+                    className="mt-4 px-6 py-2 rounded bg-yellow-400 text-white 
            hover:bg-slate-200  
-           hover:text-red-600
+           hover:text-yellow-500
            hover:border-2 
-           hover:border-red-600
+           hover:border-yellow-400
           
            transition-all duration-500 ease-in-out"
                   >

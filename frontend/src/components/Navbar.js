@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../images/logo3.png';
+import logo from '../images/logo_new.png';
 
 import { motion } from 'framer-motion';
 import defaultProfileImage from '../images/profile.jpg';
+import ProfileAvatar from './ProfileAvatar';
 
-const Navbar = () => {
+const Navbar = ({profilepic}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -28,16 +29,19 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    
     const fetchUser = () => {
       const userData = localStorage.getItem('userData');
       if (userData) {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
         setUserLoggedIn(true);
+        console.log(parsedUser,"parsed user in the navabar")
       }
     };
+
     fetchUser();
-  }, []);
+  },[profilepic]);
 
   return (
     <nav className="bg-red-600  border-b-4 border-yellow-400 p-4 flex justify-between items-center shadow-md relative z-10">
@@ -59,12 +63,11 @@ const Navbar = () => {
 
         {userLoggedIn && (
           <div className="relative">
-            <img
-              src={defaultProfileImage}
-              alt="profile"
-              className="w-10 h-10 rounded-full cursor-pointer"
-              onClick={handleProfileClick}
-            />
+            <div onClick={handleProfileClick}>
+        <ProfileAvatar keyword={ user?.profile || 'default'} width="50px" height='50px' />
+
+            </div>
+           
             {isDropdownOpen && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
