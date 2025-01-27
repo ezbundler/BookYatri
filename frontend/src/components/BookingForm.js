@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const UserForm = ({ onSubmit }) => {
+
+
+const UserForm = ({ index, onFormChange }) => {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -10,24 +12,45 @@ const UserForm = ({ onSubmit }) => {
     email: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+    onFormChange(index, updatedFormData);
+  };
+
+  // Validate form data
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name) newErrors.name = "Name is required.";
+    if (!formData.age) newErrors.age = "Age is required.";
+    if (!formData.gender) newErrors.gender = "Gender is required.";
+    if (!formData.adhaarCardNo.match(/^\d{12}$/))
+      newErrors.adhaarCardNo = "Aadhaar Card No must be 12 digits.";
+    if (!formData.phoneNumber.match(/^\d{10}$/))
+      newErrors.phoneNumber = "Phone Number must be 10 digits.";
+    if (!formData.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
+      newErrors.email = "Invalid email address.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);  // Send data to parent component
-    setFormData({ name: "", age: "", gender: "", adhaarCardNo: "", phoneNumber: "", email: "" });
+    if (validate()) {
+      onFormChange(index, formData);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded shadow">
+      <h3 className="text-lg font-bold">Person {index + 1}</h3>
+
       <div>
         <label className="block text-sm font-medium">Name:</label>
         <input
@@ -38,6 +61,7 @@ const UserForm = ({ onSubmit }) => {
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
+        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
       </div>
 
       <div>
@@ -50,6 +74,7 @@ const UserForm = ({ onSubmit }) => {
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
+        {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
       </div>
 
       <div>
@@ -66,23 +91,23 @@ const UserForm = ({ onSubmit }) => {
           <option value="Female">Female</option>
           <option value="Other">Other</option>
         </select>
+        {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
       </div>
 
       <div>
-  <label className="block text-sm font-medium">Aadhaar Card No:</label>
-  <input
-    type="text"
-    name="adhaarCardNo"
-    value={formData.adhaarCardNo}
-    onChange={handleChange}
-    required
-    pattern="\d{12}"
-    maxLength="12"
-    title="Aadhaar number must be a 12-digit numeric value (e.g., 123412341234)"
-    className="w-full p-2 border border-gray-300 rounded"
-  />
-</div>
-
+        <label className="block text-sm font-medium">Aadhaar Card No:</label>
+        <input
+          type="text"
+          name="adhaarCardNo"
+          value={formData.adhaarCardNo}
+          onChange={handleChange}
+          required
+          pattern="\d{12}"
+          maxLength="12"
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        {errors.adhaarCardNo && <p className="text-red-500 text-sm">{errors.adhaarCardNo}</p>}
+      </div>
 
       <div>
         <label className="block text-sm font-medium">Phone Number:</label>
@@ -96,6 +121,7 @@ const UserForm = ({ onSubmit }) => {
           maxLength="10"
           className="w-full p-2 border border-gray-300 rounded"
         />
+        {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
       </div>
 
       <div>
@@ -108,16 +134,46 @@ const UserForm = ({ onSubmit }) => {
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
-
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
-      >
-        Submit
-      </button>
     </form>
   );
 };
 
-export default UserForm;
+
+
+
+const BookingForm = ({ count, onSubmit }) => {
+  const [formData, setFormData] = useState({});
+
+  const handleFormChange = (index, data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [`person${index + 1}`]: data,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold mb-4">Booking Form</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {[...Array(count)].map((_, index) => (
+          <UserForm key={index} index={index} onFormChange={handleFormChange} />
+        ))}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
+        >
+          Submit All
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default BookingForm;

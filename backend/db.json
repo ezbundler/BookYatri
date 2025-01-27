@@ -1,707 +1,891 @@
 {
-    "users": [
-      {
-        "id": "1",
-        "name": "John Doe",
-        "email": "john@example.com",
-        "password": "password123",
-        "phone": "123456789",
-        "role": "user"
-      },
-      {
-        "id": "2",
-        "name": "akash",
-        "email": "akash@gmail.com",
-        "password": "admin@1234",
-        "phone": "8235552552",
-        "age": "23",
-        "role": "admin",
-        "address": "n-312, Malwa County Indore",
-        "profile": "backpacker2"
-      },
-      {
-        "id": "3",
-        "name": "testing",
-        "email": "test@mail.com",
-        "password": "123456",
-        "phone": "7899456810"
-      },
-      {
-        "id": "4",
-        "name": "rahul",
-        "email": "rahul@gmail.com",
-        "password": "1234",
-        "role": "user",
-        "phone": "1234567892",
-        "age": "27",
-        "address": "",
-        "profile": "backpacker"
-      },
-      {
-        "id": "5",
-        "name": "testing123",
-        "email": "testing@testing.com",
-        "password": "testing",
-        "role": "user",
-        "phone": "1234567892",
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123",
+      "phone": "123456789",
+      "role": "user"
+    },
+    {
+      "id": "2",
+      "name": "akash",
+      "email": "akash@gmail.com",
+      "password": "admin@1234",
+      "phone": "8235552552",
+      "age": "23",
+      "role": "admin",
+      "address": "n-312, Malwa County Indore",
+      "profile": "backpacker2"
+    },
+    {
+      "id": "3",
+      "name": "testing",
+      "email": "test@mail.com",
+      "password": "123456",
+      "phone": "7899456810"
+    },
+    {
+      "id": "4",
+      "name": "rahul",
+      "email": "rahul@gmail.com",
+      "password": "1234",
+      "role": "user",
+      "phone": "1234567892",
+      "age": "27",
+      "address": "",
+      "profile": "wanderer"
+    },
+    {
+      "id": "5",
+      "name": "testing123",
+      "email": "testing@testing.com",
+      "password": "testing",
+      "role": "user",
+      "phone": "1234567892",
+      "age": "25",
+      "address": "madhya pradesh"
+    },
+    {
+      "id": "6",
+      "name": "vaibhav singh",
+      "email": "vaibhav@gmail.com",
+      "password": "Vai@123",
+      "role": "user",
+      "phone": "",
+      "age": "",
+      "address": ""
+    },
+    {
+      "id": "7",
+      "name": "rahul",
+      "email": "rahul@testing.com",
+      "password": "testing",
+      "role": "user",
+      "phone": "1234567892",
+      "age": "24",
+      "address": "indore , india"
+    },
+    {
+      "id": "8",
+      "name": "test1",
+      "email": "test1@mail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "9",
+      "name": "sandeep",
+      "email": "sandeep@mail.com",
+      "password": "123456",
+      "role": "admin"
+    }
+  ],
+  "buses": [
+    {
+      "id": "1",
+      "name": "Indore-Bhopal Express",
+      "route": "Indore to Bhopal",
+      "departure": "2025-01-20T10:00:00",
+      "UpperSeats": [
+        {
+          "name": "U1",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U2",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U3",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U4",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U5",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U7",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U8",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U9",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U10",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U11",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U12",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U13",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U14",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U15",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U16",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U17",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U18",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U19",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U20",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U21",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U22",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U24",
+          "side": "right",
+          "booked": false
+        }
+      ],
+      "LowerSeats": [
+        {
+          "name": "L1",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L2",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L3",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L4",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L5",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L7",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L8",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L9",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L10",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L11",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L12",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L13",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L14",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L15",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L16",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L17",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L18",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L19",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L20",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L21",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L22",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L24",
+          "side": "right",
+          "booked": false
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Indore-Ujjain Express",
+      "route": "Indore to Ujjain",
+      "departure": "2025-01-20T10:00:00",
+      "UpperSeats": [
+        {
+          "name": "U1",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U2",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U3",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U4",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U5",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U7",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U8",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U9",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U10",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U11",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U12",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U13",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U14",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U15",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U16",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U17",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U18",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U19",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U20",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U21",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U22",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U24",
+          "side": "right",
+          "booked": false
+        }
+      ],
+      "LowerSeats": [
+        {
+          "name": "L1",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L2",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L3",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L4",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L5",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L7",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L8",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L9",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L10",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L11",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L12",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L13",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L14",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L15",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L16",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L17",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L18",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L19",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L20",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L21",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L22",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L24",
+          "side": "right",
+          "booked": false
+        }
+      ]
+    }
+  ],
+  "bookings": [
+    {
+      "id": "8784",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U7",
+        "U10",
+        "U2",
+        "U3"
+      ],
+      "busId": "1",
+      "date": "16/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
         "age": "25",
-        "address": "madhya pradesh"
-      },
-      {
-        "id": "6",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "3130",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U3",
+        "U13",
+        "L3",
+        "L13",
+        "L14",
+        "L18"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "2122",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U8",
+        "U11",
+        "U14",
+        "U15",
+        "U17"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
         "name": "vaibhav singh",
-        "email": "vaibhav@gmail.com",
-        "password": "Vai@123",
-        "role": "user",
-        "phone": "",
-        "age": "",
-        "address": ""
-      },
-      {
-        "id": "7",
-        "name": "rahul",
-        "email": "rahul@testing.com",
-        "password": "testing",
-        "role": "user",
-        "phone": "1234567892",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "vaibhav@gmail.com"
+      }
+    },
+    {
+      "id": "2683",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "U2",
+        "U10",
+        "U9"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "1823",
+      "useremail": "test1@mail.com",
+      "seatno": [
+        "U5",
+        "U19",
+        "U21"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "Ronit roy",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "ronit@gmail.com"
+      }
+    },
+    {
+      "id": "5312",
+      "useremail": "test1@mail.com",
+      "seatno": [
+        "U12"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "Ronit roy",
         "age": "24",
-        "address": "indore , india"
-      },
-      {
-        "id": "8",
-        "name": "test1",
-        "email": "test1@mail.com",
-        "password": "123456",
-        "role": "user"
-      },
-      {
-        "id": "9",
-        "name": "sandeep",
-        "email": "sandeep@mail.com",
-        "password": "123456",
-        "role": "admin"
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "ronit@gmail.com"
       }
-    ],
-    "buses": [
-      {
-        "id": "1",
-        "name": "Indore-Bhopal Express",
-        "route": "Indore to Bhopal",
-        "departure": "2025-01-20T10:00:00",
-        "UpperSeats": [
-          {
-            "name": "U1",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "U2",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U3",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U4",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "U5",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U6",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "U7",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U8",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U9",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U10",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U11",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U12",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U13",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U14",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U15",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U16",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U17",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U18",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U19",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U20",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U21",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U22",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U23",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U24",
-            "side": "right",
-            "booked": false
-          }
-        ],
-        "LowerSeats": [
-          {
-            "name": "L1",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L2",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L3",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L4",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "L5",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L6",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "L7",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L8",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L9",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L10",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L11",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L12",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L13",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L14",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L15",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L16",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L17",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L18",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L19",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L20",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L21",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L22",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L23",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L24",
-            "side": "right",
-            "booked": false
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "name": "Indore-Ujjain Express",
-        "route": "Indore to Ujjain",
-        "departure": "2025-01-20T10:00:00",
-        "UpperSeats": [
-          {
-            "name": "U1",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U2",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U3",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U4",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "U5",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "U6",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "U7",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U8",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U9",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U10",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U11",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U12",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U13",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U14",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U15",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U16",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U17",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U18",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U19",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U20",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U21",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "U22",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U23",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "U24",
-            "side": "right",
-            "booked": false
-          }
-        ],
-        "LowerSeats": [
-          {
-            "name": "L1",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L2",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L3",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L4",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "L5",
-            "side": "left",
-            "booked": true
-          },
-          {
-            "name": "L6",
-            "side": "left",
-            "booked": false
-          },
-          {
-            "name": "L7",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L8",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L9",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L10",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L11",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L12",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L13",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L14",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L15",
-            "side": "right",
-            "booked": true
-          },
-          {
-            "name": "L16",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L17",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L18",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L19",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L20",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L21",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L22",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L23",
-            "side": "right",
-            "booked": false
-          },
-          {
-            "name": "L24",
-            "side": "right",
-            "booked": false
-          }
-        ]
+    },
+    {
+      "id": "6754",
+      "useremail": "rahul@gmail.com",
+      "seatno": [
+        "L1",
+        "L10",
+        "L11"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "vaibhav singh",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
       }
-    ],
-    "bookings": [
-      {
-        "id": "8784",
-        "useremail": "rahul@gmail.com",
-        "seatno": [
-          "U7",
-          "U10",
-          "U2",
-          "U3"
-        ],
-        "busId": "1",
-        "date": "16/01/2025",
-        "userDetails": {
-          "name": "akash chaudhary",
-          "age": "25",
-          "gender": "Male",
-          "adhaarCardNo": "123456789101",
-          "phoneNumber": "1234567890",
-          "email": "akash@gmail.com"
-        }
-      },
-      {
-        "id": "3130",
-        "useremail": "rahul@gmail.com",
-        "seatno": [
-          "U3",
-          "U13",
-          "L3",
-          "L13",
-          "L14",
-          "L18"
-        ],
-        "busId": "1",
-        "date": "22/01/2025",
-        "userDetails": {
-          "name": "akash chaudhary",
-          "age": "25",
-          "gender": "Male",
-          "adhaarCardNo": "123456789101",
-          "phoneNumber": "1234567890",
-          "email": "akash@gmail.com"
-        }
-      },
-      {
-        "id": "2122",
-        "useremail": "rahul@gmail.com",
-        "seatno": [
-          "U8",
-          "U11",
-          "U14",
-          "U15",
-          "U17"
-        ],
-        "busId": "1",
-        "date": "22/01/2025",
-        "userDetails": {
+    },
+    {
+      "id": "8305",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U18"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "23",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "7771",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U7"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "7166",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U22"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "2999",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U16"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "7252",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U1"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "8605",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "L7"
+      ],
+      "busId": "1",
+      "date": "22/01/2025",
+      "userDetails": {
+        "name": "vaibhav singh",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "3978",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U9"
+      ],
+      "busId": "1",
+      "date": "27/01/2025",
+      "userDetails": {
+        "name": "akash chaudhary",
+        "age": "25",
+        "gender": "Male",
+        "adhaarCardNo": "123456789101",
+        "phoneNumber": "1234567890",
+        "email": "akash@gmail.com"
+      }
+    },
+    {
+      "id": "6878",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U7",
+        "U11",
+        "U9",
+        "U3"
+      ],
+      "busId": "1",
+      "date": "29/01/2025",
+      "userDetails": {
+        "person1": {
           "name": "vaibhav singh",
           "age": "25",
           "gender": "Male",
           "adhaarCardNo": "123456789101",
           "phoneNumber": "1234567890",
           "email": "vaibhav@gmail.com"
-        }
-      },
-      {
-        "id": "2683",
-        "useremail": "rahul@gmail.com",
-        "seatno": [
-          "U2",
-          "U10",
-          "U9"
-        ],
-        "busId": "1",
-        "date": "22/01/2025",
-        "userDetails": {
+        },
+        "person2": {
           "name": "akash chaudhary",
-          "age": "23",
+          "age": "25",
           "gender": "Male",
           "adhaarCardNo": "123456789101",
           "phoneNumber": "1234567890",
           "email": "akash@gmail.com"
-        }
-      },
-      {
-        "id": "1823",
-        "useremail": "test1@mail.com",
-        "seatno": [
-          "U5",
-          "U19",
-          "U21"
-        ],
-        "busId": "1",
-        "date": "22/01/2025",
-        "userDetails": {
+        },
+        "person3": {
           "name": "Ronit roy",
-          "age": "23",
+          "age": "25",
           "gender": "Male",
           "adhaarCardNo": "123456789101",
           "phoneNumber": "1234567890",
-          "email": "ronit@gmail.com"
-        }
-      },
-      {
-        "id": "5312",
-        "useremail": "test1@mail.com",
-        "seatno": [
-          "U12"
-        ],
-        "busId": "1",
-        "date": "22/01/2025",
-        "userDetails": {
-          "name": "Ronit roy",
-          "age": "24",
+          "email": "akash@gmail.com"
+        },
+        "person4": {
+          "name": "cheeku  dosanjh",
+          "age": "21",
           "gender": "Male",
-          "adhaarCardNo": "123456789101",
+          "adhaarCardNo": "1234567890",
           "phoneNumber": "1234567890",
-          "email": "ronit@gmail.com"
+          "email": "cheeku@gmail.com"
         }
       }
-    ]
-  }
+    }
+  ]
+}

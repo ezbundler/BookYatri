@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 import ModalUtil from "../utils.js/Modal";
@@ -7,6 +7,8 @@ import busImg from "../images/bus1.png";
 import DatePickerComponent from "../components/DatePicker";
 import { toast } from "react-toastify";
 import UserForm from "../components/BookingForm";
+import BookingForm from "../components/BookingForm";
+
 const SeatBooking = () => {
   const { id } = useParams();
   const [bus, setBus] = useState(null);
@@ -15,7 +17,7 @@ const SeatBooking = () => {
   const [formData, setFormData] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
-
+// const navigate = useNavigate();
   const [seatname, setSeatname] = useState([]);
   const [BookingDate, setBookingDate] = useState("");
   const [bookings, setbookings] = useState();
@@ -26,7 +28,7 @@ const [totalCost, setTotalCost] = useState();
     console.log(data, "bookingswdawdawdawda");
     setbookings(data);
   };
-  const handleFormSubmit = (formData) => {
+  const handleBookingSubmit = (formData) => {
     console.log("Form Data Received:", formData);
     setFormData(formData);
     closeFormModal();
@@ -87,6 +89,10 @@ const [totalCost, setTotalCost] = useState();
   function getRandomFourDigitString() {
     return Math.floor(1000 + Math.random() * 9000).toString();
   }
+  const handlePayment = () => {
+    window.location.href = "https://book.stripe.com/test_3cs00A8gLbSp1yw3cc"; // Replace with your payment link
+  };
+
   const handleBooking = async () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -114,7 +120,7 @@ const [totalCost, setTotalCost] = useState();
       fetchBookingByDate();
       fetchBus();
       setSeatname([]);
-
+handlePayment();
       toast.info("successfully done booking");
     } catch (err) {
       alert("Error booking the seat. Please try again.");
@@ -245,7 +251,7 @@ const [totalCost, setTotalCost] = useState();
                               ? "bg-red-600 text-white cursor-not-allowed"
                               :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
-                          disabled={filteredBookings.some((b) =>
+                          disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat.name)
                           )}
                           onClick={() => handleSeatClick(seat.name)}
@@ -273,7 +279,7 @@ const [totalCost, setTotalCost] = useState();
                               ? "bg-red-600 text-white cursor-not-allowed"
                               :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
-                          disabled={filteredBookings.some((b) =>
+                          disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat.name)
                           )}
                           onClick={() => handleSeatClick(seat.name)}
@@ -290,6 +296,7 @@ const [totalCost, setTotalCost] = useState();
               isOpen={isBookingModalOpen}
               onClose={closeBookingModal}
               onSubmit={handleBooking}
+              // onSubmit={()=>navigate('/payments')}
             >
               <div className="flex flex-col items-center justify-center">
                 <h2 className="text-xl font-bold mb-4">Confirm Booking</h2>
@@ -307,34 +314,41 @@ const [totalCost, setTotalCost] = useState();
               </div>
 
               <div className="mt-4 border-t pt-4">
-                <h3 className="text-lg font-bold mb-2 text-center">
-                  Passenger Details
-                </h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>
-                    <strong>Name:</strong> {formData.name}
-                  </li>
-                  <li>
-                    <strong>Age:</strong> {formData.age}
-                  </li>
-                  <li>
-                    <strong>Gender:</strong> {formData.gender}
-                  </li>
-                  <li>
-                    <strong>Aadhaar:</strong> {formData.adhaarCardNo}
-                  </li>
-                  <li>
-                    <strong>Phone:</strong> {formData.phoneNumber}
-                  </li>
-                  <li>
-                    <strong>Email:</strong> {formData.email}
-                  </li>
-                </ul>
-              </div>
+  <h3 className="text-xl font-bold mb-4 text-center">Passenger Details</h3>
+  {Object.entries(formData).map(([key, passenger], index) => (
+    <div key={index} className="mt-4 border-t pt-4">
+      <h3 className="text-lg font-bold mb-2 text-center">
+        {key.charAt(0).toUpperCase() + key.slice(1)} Details
+      </h3>
+      <ul className="space-y-2 text-gray-700">
+        <li>
+          <strong>Name:</strong> {passenger.name}
+        </li>
+        <li>
+          <strong>Age:</strong> {passenger.age}
+        </li>
+        <li>
+          <strong>Gender:</strong> {passenger.gender}
+        </li>
+        <li>
+          <strong>Aadhaar:</strong> {passenger.adhaarCardNo}
+        </li>
+        <li>
+          <strong>Phone:</strong> {passenger.phoneNumber}
+        </li>
+        <li>
+          <strong>Email:</strong> {passenger.email}
+        </li>
+      </ul>
+    </div>
+  ))}
+</div>
+
             </ModalUtil>
 
             <ModalUtil isOpen={isFormModalOpen} onClose={closeFormModal}>
-              <UserForm onSubmit={handleFormSubmit} />
+              {/* <UserForm onSubmit={handleFormSubmit}  /> */}
+             <BookingForm count={seatname.length} onSubmit={handleBookingSubmit} />
             </ModalUtil>
           </div>
         </div>

@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/logo_new.png';
-
 import { motion } from 'framer-motion';
-import defaultProfileImage from '../images/profile.jpg';
 import ProfileAvatar from './ProfileAvatar';
 
-const Navbar = ({profilepic}) => {
+const Navbar = ({ profilepic }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [user, setUser] = useState('');
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleProfileClick = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen((prevState) => !prevState);
   };
 
   const handleSignOut = () => {
@@ -29,45 +28,59 @@ const Navbar = ({profilepic}) => {
   };
 
   useEffect(() => {
-    
     const fetchUser = () => {
       const userData = localStorage.getItem('userData');
       if (userData) {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
         setUserLoggedIn(true);
-        console.log(parsedUser,"parsed user in the navabar")
+        console.log(parsedUser, "parsed user in the navbar");
       }
     };
 
     fetchUser();
-  },[profilepic]);
+  }, [profilepic]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
-    <nav className="bg-red-600  border-b-4 border-yellow-400 p-4 flex justify-between items-center shadow-md relative z-10">
+    <nav className="bg-red-600 border-b-4 border-yellow-400 p-4 flex justify-between items-center shadow-md relative z-10">
       <Link to="/" className="flex items-center">
         <img src={logo} alt="BookYatri Logo" className="h-10" />
       </Link>
 
-      <div className='flex gap-6'>
+      <div className="flex gap-6">
         <div className="hidden lg:flex items-center space-x-6">
-          <Link to ='/home'><button className="text-white">Home</button></Link>
-          {!userLoggedIn && <>
-          
-          <Link to="/login"><button className="block text-white py-2">Login</button></Link>
-         <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
-        </>
-        }
-          {/* <ThemeToggler /> */}
+          <Link to="/home"><button className="text-white">Home</button></Link>
+          {!userLoggedIn && (
+            <>
+              <Link to="/login"><button className="block text-white py-2">Login</button></Link>
+              <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
+            </>
+          )}
         </div>
 
         {userLoggedIn && (
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <div onClick={handleProfileClick}>
-        <ProfileAvatar keyword={ user?.profile || 'default'} width="50px" height='50px' />
-
+              <ProfileAvatar keyword={user?.profile || 'default'} width="50px" height="50px" />
             </div>
-           
+
             {isDropdownOpen && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -78,13 +91,13 @@ const Navbar = ({profilepic}) => {
               >
                 <button
                   onClick={() => navigate('/profile')}
-                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500 hover:bg-gray-300 "
+                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500 hover:bg-gray-300"
                 >
                   Profile
                 </button>
                 <button
                   onClick={handleSignOut}
-                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500  hover:bg-gray-300 "
+                  className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500 hover:bg-gray-300"
                 >
                   Sign Out
                 </button>
@@ -109,14 +122,12 @@ const Navbar = ({profilepic}) => {
           transition={{ duration: 0.3 }}
         >
           <Link to="/home"><button className="text-white mb-4">Home</button></Link>
-
-          {!userLoggedIn && <>
-          
-            <Link to="/login"><button className="block text-white py-2">Login</button></Link>
-           <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
-          </>
-          }
-          {/* <ThemeToggler /> */}
+          {!userLoggedIn && (
+            <>
+              <Link to="/login"><button className="block text-white py-2">Login</button></Link>
+              <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
+            </>
+          )}
         </motion.div>
       </div>
     </nav>

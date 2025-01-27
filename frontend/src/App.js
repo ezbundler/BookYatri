@@ -12,6 +12,7 @@ import Protectedroute from './utils.js/ProtectedRoute';
 import SeatBooking from './pages/BookingPage';
 import Profile from './pages/Profile';
 
+
 function App() {
   return (
     <div className=' min-h-screen bg-slate-100'>
@@ -39,6 +40,7 @@ function App() {
             <Profile  />
           </Protectedroute>
         }/>
+        
       </Routes>
     </Router>
     </div>
