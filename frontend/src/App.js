@@ -24,19 +24,16 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home/" element={
           <Protectedroute>
-
             <HomePage  />
           </Protectedroute>
         }/>
         <Route path="/seatBooking/:id" element={
           <Protectedroute>
-
             <SeatBooking  />
           </Protectedroute>
         }/>
         <Route path="/profile" element={
           <Protectedroute>
-
             <Profile  />
           </Protectedroute>
         }/>

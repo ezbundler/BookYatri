@@ -134,4 +134,4 @@ const Navbar = ({ profilepic }) => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

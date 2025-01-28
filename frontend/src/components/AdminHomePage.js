@@ -144,7 +144,6 @@ const AdminHomePage = () => {
         </div>
       </div>
 
-     
       <div className="w-full sm:w-1/3 p-4">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold mb-4">User </h2>
@@ -156,49 +155,55 @@ const AdminHomePage = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 gap-6">
-  {users.slice(0, 4).map((user) => (
-    <div
-      key={user.id}
-      className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
-      onClick={() => handleUserClick(user)}
-    >
-        <ProfileAvatar keyword={user?.profile || "default"} width="100px" height='100px' />
+          {users.slice(0, 4).map((user) => (
+            <div
+              key={user.id}
+              className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
+              onClick={() => handleUserClick(user)}
+            >
+              <ProfileAvatar
+                keyword={user?.profile || "default"}
+                width="100px"
+                height="100px"
+              />
 
-      <div className="flex flex-col items-center text-center">
-      <h3 className="text-xl font-bold text-gray-800 mb-2">{user.name}</h3>
-      <p className="text-gray-600 text-sm mb-1">{user.email}</p>
-      <p className="text-gray-600 text-sm">{user.phone}</p>
-      </div>
-     
-    </div>
-  ))}
-</div>
-
+              <div className="flex flex-col items-center text-center">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {user.name}
+                </h3>
+                <p className="text-gray-600 text-sm mb-1">{user.email}</p>
+                <p className="text-gray-600 text-sm">{user.phone}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <ModalUtil isOpen={isUserListModalOpen} onClose={closeUserListModal}>
-      <div className="grid grid-cols-1 gap-6">
-  {users?.map((user) => (
-    <div
-    key={user.id}
-    className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
-    onClick={() => handleUserClick(user)}
-  >
-      <ProfileAvatar keyword={user?.profile || "default"} width="100px" height='100px' />
+        <div className="grid grid-cols-1 gap-6">
+          {users?.map((user) => (
+            <div
+              key={user.id}
+              className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
+              onClick={() => handleUserClick(user)}
+            >
+              <ProfileAvatar
+                keyword={user?.profile || "default"}
+                width="100px"
+                height="100px"
+              />
 
-    <div className="flex flex-col items-center text-center">
-    <h3 className="text-xl font-bold text-gray-800 mb-2">{user.name}</h3>
-    <p className="text-gray-600 text-sm mb-1">{user.email}</p>
-    <p className="text-gray-600 text-sm">{user.phone}</p>
-    </div>
-   
-  </div>
-  ))}
-</div>
+              <div className="flex flex-col items-center text-center">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {user.name}
+                </h3>
+                <p className="text-gray-600 text-sm mb-1">{user.email}</p>
+                <p className="text-gray-600 text-sm">{user.phone}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </ModalUtil>
-
-
-
       {selectedUser && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-3/4">

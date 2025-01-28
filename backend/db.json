@@ -80,6 +80,38 @@
       "email": "sandeep@mail.com",
       "password": "123456",
       "role": "admin"
+    },
+    {
+      "id": "10",
+      "name": "user1 ",
+      "email": "user1@mail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "11",
+      "name": "admin1",
+      "email": "admin1@mail.com",
+      "password": "123456",
+      "role": "admin",
+      "phone": "asdfa",
+      "age": "",
+      "address": "",
+      "profile": "formalGirl1"
+    },
+    {
+      "id": "12",
+      "name": "rsetgs",
+      "email": "sdg@mail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "13",
+      "name": "sdfs",
+      "email": "sf@mail.comawfdwet",
+      "password": " safdsdf",
+      "role": "user"
     }
   ],
   "buses": [
@@ -884,6 +916,43 @@
           "adhaarCardNo": "1234567890",
           "phoneNumber": "1234567890",
           "email": "cheeku@gmail.com"
+        }
+      }
+    },
+    {
+      "id": "7735",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U12",
+        "U15",
+        "U18"
+      ],
+      "busId": "1",
+      "date": "29/01/2025",
+      "userDetails": {
+        "person1": {
+          "name": "akash chaudhary",
+          "age": "25",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "akash@gmail.com"
+        },
+        "person2": {
+          "name": "akash chaudhary",
+          "age": "25",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "vaibhav@gmail.com"
+        },
+        "person3": {
+          "name": "Ronit roy",
+          "age": "23",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "akash@gmail.com"
         }
       }
     }
