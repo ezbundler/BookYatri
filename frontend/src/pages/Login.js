@@ -4,6 +4,7 @@ import jwt from "jwt-encode";
 import Navbar from "../components/Navbar";
 import { loginfunction } from "../services/auth";
 import { toast } from "react-toastify";
+import Button from "../utils.js/button";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const LoginPage = () => {
       const token = jwt(payload, secretKey);
       localStorage.setItem("authToken", token);
       localStorage.setItem("userData", JSON.stringify(user));
-      toast.warning("Logged In Successfully!")
+      toast.warning("Logged In Successfully!");
       navigate(`/home`);
     } else {
       toast.error("Invalid email or password");
@@ -56,13 +57,13 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <p className="text-red-500">{error}</p>}
-          <button
+          <Button
             type="submit"
-            className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
+            title={loading ? "Logging in..." : "Login"}
             disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+            className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
+          />
+         
         </form>
         <div className="mt-2 text-black ">
           {" "}

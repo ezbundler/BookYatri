@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import AdminHome from "../components/AdminHomePage";
 import { toast } from "react-toastify";
 import { fetchbuses } from "../services/buses";
+import Button from "../utils.js/button";
 
 const HomePage = () => {
   const [busList, setBusList] = useState();
@@ -15,9 +16,6 @@ const HomePage = () => {
   const handleBooking = (id) => {
     navigate(`/seatBooking/${id}`);
   };
-    const fetchBuses = async () => {
-      
-    };
 
   useEffect(() => {
     const LoadBuses = async () => {
@@ -29,7 +27,6 @@ const HomePage = () => {
         toast.error(`${buses.error}`);
         return;
       }
-      // setBusList(buses);
     };
     const fetchUser = async () => {
       try {
@@ -66,18 +63,11 @@ const HomePage = () => {
                   <h3 className="text-xl font-semibold text-red-600 ">
                     {bus?.route}
                   </h3>
-                  <button
+                  <Button
                     onClick={() => handleBooking(bus.id)}
-                    className="mt-4 px-6 py-2 rounded bg-yellow-400 text-white 
-           hover:bg-slate-200  
-           hover:text-yellow-500
-           hover:border-2 
-           hover:border-yellow-400
-          
-           transition-all duration-500 ease-in-out"
-                  >
-                    Book Seat
-                  </button>
+                    title="Book Seat"
+                    className="mt-4 px-6 py-2 rounded bg-yellow-400 text-white hover:bg-slate-200 hover:text-yellow-500 hover:border-2hover:border-yellow-400 transition-all duration-500 ease-in-out"
+                  ></Button>
                 </div>
               ))}
             </div>

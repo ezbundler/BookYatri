@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 import ModalUtil from "../utils.js/Modal";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import UserForm from "../components/BookingForm";
 import BookingForm from "../components/BookingForm";
 import { fetchAllBooking, fetchbusById, seatBooking } from "../services/buses";
+import Button from "../utils.js/button";
 
 const SeatBooking = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const SeatBooking = () => {
   const [formData, setFormData] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
- 
+
   const [seatname, setSeatname] = useState([]);
   const [BookingDate, setBookingDate] = useState("");
   const [bookings, setbookings] = useState();
@@ -26,11 +27,10 @@ const SeatBooking = () => {
   const fetchBookingByDate = async () => {
     try {
       const bookings = await fetchAllBooking();
-    setbookings(bookings.data);
+      setbookings(bookings.data);
     } catch (error) {
       toast.error(`${error}`);
     }
-  
   };
   const handleBookingSubmit = (formData) => {
     console.log("Form Data Received:", formData);
@@ -41,7 +41,7 @@ const SeatBooking = () => {
   };
   const userdata = JSON.parse(localStorage.getItem("userData"));
   const fetchBus = useCallback(async () => {
-    const data = await fetchbusById({ id })
+    const data = await fetchbusById({ id });
 
     if (data) {
       setBus(data.data);
@@ -102,21 +102,18 @@ const SeatBooking = () => {
     try {
       setIsBookingModalOpen(false);
       const seatBook = await seatBooking({ busBooking });
-      if(seatBook.status === 201){
+      if (seatBook.status === 201) {
         fetchBookingByDate();
         fetchBus();
         setSeatname([]);
         handlePayment();
         toast.info("successfully done booking");
-      }else{
+      } else {
         throw new Error("Unable to Confirm the seat. Book again in sometime");
-        
       }
-      
-      
     } catch (err) {
       toast.error("Error booking the seat. Please try again.");
-      toast.error(`${err}`)
+      toast.error(`${err}`);
     }
   };
 
@@ -143,15 +140,15 @@ const SeatBooking = () => {
             </div>
             <div className="lg:w-1/3 w-full flex justify-center relative">
               {seatname.length > 0 && (
-                <button
-                  onClick={() => openFormModal()}
+                <Button
+                  onClick={openFormModal}
+                  title="Book Ticket"
                   className="bg-red-600 border-2 border-red-600 hover:bg-[#fdeceb] hover:text-red-600 p-3 font-bold rounded-lg text-white relative flex items-center"
                 >
-                  Book Ticket
                   <span className="ml-2 bg-yellow-400 text-red-100 hover:bg-[#fdfdf0] border-2 border-yellow-400 hover:text-yellow-500 font-bold text-sm rounded-full w-6 h-6 flex items-center justify-center absolute -top-2 -right-2">
                     {seatname.length}
                   </span>
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -170,8 +167,9 @@ const SeatBooking = () => {
                       );
 
                       return (
-                        <button
-                          key={seat.name}
+                        <Button
+                          onClick={() => handleSeatClick(seat?.name)}
+                          keyProp={seat.name}
                           className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0 ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
@@ -184,10 +182,8 @@ const SeatBooking = () => {
                           disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat?.name)
                           )}
-                          onClick={() => handleSeatClick(seat?.name)}
-                        >
-                          {seat?.name}
-                        </button>
+                          title={seat?.name}
+                        ></Button>
                       );
                     }
                   )}
@@ -200,9 +196,10 @@ const SeatBooking = () => {
                       );
 
                       return (
-                        <button
-                          key={seat.name}
-                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
+                        <Button
+                          onClick={() => handleSeatClick(seat?.name)}
+                          keyProp={seat.name}
+                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0 ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
                             )
@@ -212,12 +209,10 @@ const SeatBooking = () => {
                               : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
-                            b.seatno.includes(seat.name)
+                            b.seatno.includes(seat?.name)
                           )}
-                          onClick={() => handleSeatClick(seat.name)}
-                        >
-                          {seat.name}
-                        </button>
+                          title={seat?.name}
+                        ></Button>
                       );
                     }
                   )}
@@ -238,9 +233,10 @@ const SeatBooking = () => {
                       );
 
                       return (
-                        <button
-                          key={seat.name}
-                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
+                        <Button
+                          onClick={() => handleSeatClick(seat?.name)}
+                          keyProp={seat.name}
+                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0 ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
                             )
@@ -250,12 +246,10 @@ const SeatBooking = () => {
                               : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
-                            b.seatno.includes(seat.name)
+                            b.seatno.includes(seat?.name)
                           )}
-                          onClick={() => handleSeatClick(seat.name)}
-                        >
-                          {seat.name}
-                        </button>
+                          title={seat?.name}
+                        ></Button>
                       );
                     }
                   )}
@@ -268,9 +262,10 @@ const SeatBooking = () => {
                       );
 
                       return (
-                        <button
-                          key={seat.name}
-                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
+                        <Button
+                          onClick={() => handleSeatClick(seat?.name)}
+                          keyProp={seat.name}
+                          className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0 ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
                             )
@@ -280,12 +275,10 @@ const SeatBooking = () => {
                               : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
-                            b.seatno.includes(seat.name)
+                            b.seatno.includes(seat?.name)
                           )}
-                          onClick={() => handleSeatClick(seat.name)}
-                        >
-                          {seat.name}
-                        </button>
+                          title={seat?.name}
+                        ></Button>
                       );
                     }
                   )}

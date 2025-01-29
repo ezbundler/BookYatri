@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { checkUserPresent, fetchUser } from "../services/user";
 import { signUpFunction } from "../services/auth";
 import { toast } from "react-toastify";
+import Button from "../utils.js/button";
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -94,13 +95,13 @@ setLoading(false);
           </select>
 
           {error && <p className="text-red-500">{error}</p>}
-          <button
-            type="submit"
-            className="bg-red-600 hover:bg-yellow-400 text-white p-2 rounded w-full"
-            disabled={loading}
-          >
-            {loading ? "Signing Up..." : "Sign Up"}
-          </button>
+          <Button
+                      type="submit"
+                      title= {loading ? "Signing Up..." : "Sign Up"}
+                      disabled={loading}
+                      className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
+                    />
+         
         </form>
         <div className="mt-2">
           <p>
