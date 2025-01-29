@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const taglines = [
   "Want to travel with friends? 🚍✨",
@@ -8,15 +8,14 @@ const taglines = [
   "Travel in comfort and style! 🚌💺",
   "Affordable travel, endless memories! 🎟️💸",
   "Planning a trip with friends or family? 🧳👫👭",
-  "Easy. Fast. Reliable. 🕒🚌"
- 
+  "Easy. Fast. Reliable. 🕒🚌",
 ];
 
 const colors = [
-  'text-yellow-400',  // Bright and vibrant orange
-  'text-purple-500',  // Soft purple with good contrast
-  'text-blue-400',     // Bold red, visible on all backgrounds
-  'text-green-500'    // Dark green for strong contrast
+  "text-yellow-400", // Bright and vibrant orange
+  "text-purple-500", // Soft purple with good contrast
+  "text-blue-400", // Bold red, visible on all backgrounds
+  "text-green-500", // Dark green for strong contrast
 ];
 
 const RotatingTaglines = () => {
@@ -29,8 +28,6 @@ const RotatingTaglines = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  // Cycle through colors in order using currentIndex
   const currentColor = colors[currentIndex % colors.length];
 
   return (
@@ -48,9 +45,10 @@ const RotatingTaglines = () => {
       >
         {taglines[currentIndex]}
       </motion.div>
-      <Link to='/signup'>
-      
-      <button className='p-4 bg-yellow-400 text-white font-medium rounded-lg hover:bg-red-600'>Book Ticket Now</button>
+      <Link to="/signup">
+        <button className="p-4 bg-yellow-400 text-white font-medium rounded-lg hover:bg-red-600">
+          Book Ticket Now
+        </button>
       </Link>
     </div>
   );

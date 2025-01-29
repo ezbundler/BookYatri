@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../images/logo_new.png';
-import { motion } from 'framer-motion';
-import ProfileAvatar from './ProfileAvatar';
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../images/logo_new.png";
+import { motion } from "framer-motion";
+import ProfileAvatar from "./ProfileAvatar";
 
 const Navbar = ({ profilepic }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -21,15 +21,15 @@ const Navbar = ({ profilepic }) => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userData');
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userData");
     setUserLoggedIn(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   useEffect(() => {
     const fetchUser = () => {
-      const userData = localStorage.getItem('userData');
+      const userData = localStorage.getItem("userData");
       if (userData) {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
@@ -41,20 +41,17 @@ const Navbar = ({ profilepic }) => {
     fetchUser();
   }, [profilepic]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
-
     if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
 
@@ -66,11 +63,17 @@ const Navbar = ({ profilepic }) => {
 
       <div className="flex gap-6">
         <div className="hidden lg:flex items-center space-x-6">
-          <Link to="/home"><button className="text-white">Home</button></Link>
+          <Link to="/home">
+            <button className="text-white">Home</button>
+          </Link>
           {!userLoggedIn && (
             <>
-              <Link to="/login"><button className="block text-white py-2">Login</button></Link>
-              <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
+              <Link to="/login">
+                <button className="block text-white py-2">Login</button>
+              </Link>
+              <Link to="/signup">
+                <button className="block text-white py-2">Sign Up</button>
+              </Link>
             </>
           )}
         </div>
@@ -78,7 +81,11 @@ const Navbar = ({ profilepic }) => {
         {userLoggedIn && (
           <div className="relative" ref={dropdownRef}>
             <div onClick={handleProfileClick}>
-              <ProfileAvatar keyword={user?.profile || 'default'} width="50px" height="50px" />
+              <ProfileAvatar
+                keyword={user?.profile || "default"}
+                width="50px"
+                height="50px"
+              />
             </div>
 
             {isDropdownOpen && (
@@ -90,7 +97,7 @@ const Navbar = ({ profilepic }) => {
                 className="absolute right-0 mt-2 w-40 bg-slate-500 border border-blue-400 shadow-md rounded-md py-2 z-20"
               >
                 <button
-                  onClick={() => navigate('/profile')}
+                  onClick={() => navigate("/profile")}
                   className="block w-full text-left px-4 py-2 text-gray-100 hover:text-gray-500 hover:bg-gray-300"
                 >
                   Profile
@@ -107,25 +114,47 @@ const Navbar = ({ profilepic }) => {
         )}
 
         <div className="lg:hidden flex items-center">
-          <button onClick={handleMenuToggle} className="text-white focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <button
+            onClick={handleMenuToggle}
+            className="text-white focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
             </svg>
           </button>
         </div>
 
         <motion.div
-          className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-full left-0 bg-slate-500 w-full border-t-2 p-4 gap-4`}
+          className={`lg:hidden ${
+            isMenuOpen ? "block" : "hidden"
+          } absolute top-full left-0 bg-slate-500 w-full border-t-2 p-4 gap-4`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          <Link to="/home"><button className="text-white mb-4">Home</button></Link>
+          <Link to="/home">
+            <button className="text-white mb-4">Home</button>
+          </Link>
           {!userLoggedIn && (
             <>
-              <Link to="/login"><button className="block text-white py-2">Login</button></Link>
-              <Link to="/signup"><button className="block text-white py-2">Sign Up</button></Link>
+              <Link to="/login">
+                <button className="block text-white py-2">Login</button>
+              </Link>
+              <Link to="/signup">
+                <button className="block text-white py-2">Sign Up</button>
+              </Link>
             </>
           )}
         </motion.div>

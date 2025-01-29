@@ -36,10 +36,10 @@ const UserForm = ({ index, onFormChange }) => {
       newErrors.email = "Invalid email address.";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0; 
   };
 
-  // Handle form submission
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {

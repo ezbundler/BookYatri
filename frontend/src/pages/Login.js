@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jwt from "jwt-encode";
 import Navbar from "../components/Navbar";
 import { loginfunction } from "../services/auth";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -24,13 +25,12 @@ const LoginPage = () => {
       };
       const secretKey = "your-secret-key";
       const token = jwt(payload, secretKey);
-
       localStorage.setItem("authToken", token);
       localStorage.setItem("userData", JSON.stringify(user));
-
+      toast.warning("Logged In Successfully!")
       navigate(`/home`);
     } else {
-      setError("Invalid email or password");
+      toast.error("Invalid email or password");
     }
     setLoading(false);
   };

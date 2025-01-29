@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import heroIMG from "../images/conductor.png";
 import Navbar from "../components/Navbar";
 import AdminHome from "../components/AdminHomePage";
+import { toast } from "react-toastify";
+import { fetchbuses } from "../services/buses";
 
 const HomePage = () => {
   const [busList, setBusList] = useState();
@@ -13,13 +15,21 @@ const HomePage = () => {
   const handleBooking = (id) => {
     navigate(`/seatBooking/${id}`);
   };
+    const fetchBuses = async () => {
+      
+    };
 
   useEffect(() => {
     const LoadBuses = async () => {
-      const response = await fetch("http://localhost:5000/buses");
-      const buses = await response.json();
-      console.log(buses, "busses");
-      setBusList(buses);
+      const buses = await fetchbuses();
+      if (buses.statusCode !== 401) {
+        setBusList(buses.buses);
+        return;
+      } else {
+        toast.error(`${buses.error}`);
+        return;
+      }
+      // setBusList(buses);
     };
     const fetchUser = async () => {
       try {

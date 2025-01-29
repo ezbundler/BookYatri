@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ModalUtil from "../utils.js/Modal";
 import ProfileAvatar from "./ProfileAvatar";
+import { fetchbuses } from "../services/buses";
+import { toast } from "react-toastify";
+import { changeUserRole, fetchUser } from "../services/user";
 
 const AdminHomePage = () => {
   const [buses, setBuses] = useState([]);
@@ -24,15 +26,23 @@ const AdminHomePage = () => {
   }, []);
 
   const fetchBuses = async () => {
-    const response = await fetch("http://localhost:5000/buses");
-    const data = await response.json();
-    setBuses(data);
+    const buses = await fetchbuses();
+    if (buses.statusCode !== 401) {
+      setBuses(buses.buses);
+      return;
+    } else {
+      toast.error(`${buses.error}`);
+      return;
+    }
   };
 
   const fetchUsers = async () => {
-    const response = await fetch("http://localhost:5000/users");
-    const data = await response.json();
-    setUsers(data);
+    const users = await fetchUser();
+    if (users.statusCode === 201) {
+      setUsers(users.data);
+    } else {
+      toast.error(`${users.error}. Please try again later`);
+    }
   };
 
   const handleUserClick = (user) => {
@@ -42,7 +52,6 @@ const AdminHomePage = () => {
 
   const handleRoleChange = (newRole) => {
     setSelectedUser({ ...selectedUser, role: newRole });
-    console.log(selectedUser, "userrole changing check");
   };
 
   const openUserListModal = () => {
@@ -54,45 +63,22 @@ const AdminHomePage = () => {
   };
 
   const handleSubmitRoleChange = async () => {
-    console.log(
-      selectedUser,
-      "last time checking while saving the detail change"
-    );
-    try {
-      const updatedUser = {
-        ...selectedUser,
-        role: selectedUser.role,
-      };
-
-      const response = await fetch(
-        `http://localhost:5000/users/${selectedUser.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
-        }
+    const updatedUser = {
+      ...selectedUser,
+      role: selectedUser.role,
+    };
+    const response = await changeUserRole({ updatedUser });
+    if (response.statusCode === 201) {
+      const updatedUserData = await response.data.json();
+      setSelectedUser(updatedUserData);
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === updatedUserData.id ? updatedUserData : user
+        )
       );
-
-      if (response.ok) {
-        const updatedUserData = await response.json();
-
-        setSelectedUser(updatedUserData);
-
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === updatedUserData.id ? updatedUserData : user
-          )
-        );
-        alert("User role updated successfully!");
-      } else {
-        console.error("Failed to update user");
-        alert("Failed to update user role");
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-      alert("Error updating user role");
+      toast.success("User role updated successfully!");
+    } else {
+      toast.error(`Failed to update user role! ${response.error} `);
     }
   };
 

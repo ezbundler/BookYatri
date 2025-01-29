@@ -6,7 +6,7 @@
       "email": "john@example.com",
       "password": "password123",
       "phone": "123456789",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": "2",
@@ -24,7 +24,8 @@
       "name": "testing",
       "email": "test@mail.com",
       "password": "123456",
-      "phone": "7899456810"
+      "phone": "7899456810",
+      "role": "admin"
     },
     {
       "id": "4",
@@ -111,6 +112,20 @@
       "name": "sdfs",
       "email": "sf@mail.comawfdwet",
       "password": " safdsdf",
+      "role": "user"
+    },
+    {
+      "id": "NaN",
+      "name": "asdsa",
+      "email": "akash@gmail.com",
+      "password": "dasdasda",
+      "role": "user"
+    },
+    {
+      "id": "15",
+      "name": "shyam",
+      "email": "shyam@gmail.com",
+      "password": "123456",
       "role": "user"
     }
   ],
@@ -955,6 +970,85 @@
           "email": "akash@gmail.com"
         }
       }
+    },
+    {
+      "id": "2670",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U8",
+        "U19",
+        "L2",
+        "L15"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "7093",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U9",
+        "U11"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "1622",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U7",
+        "U3"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "7859",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "L13",
+        "L16"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "2753",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U13",
+        "U4"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "6355",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U17",
+        "U1"
+      ],
+      "busId": "1",
+      "date": "30/01/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "2244",
+      "useremail": "akash@gmail.com",
+      "seatno": [
+        "U10",
+        "U13"
+      ],
+      "busId": "1",
+      "date": "05/02/2025",
+      "userDetails": {}
     }
   ]
 }

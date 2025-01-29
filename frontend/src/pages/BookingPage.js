@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 import ModalUtil from "../utils.js/Modal";
@@ -8,6 +8,7 @@ import DatePickerComponent from "../components/DatePicker";
 import { toast } from "react-toastify";
 import UserForm from "../components/BookingForm";
 import BookingForm from "../components/BookingForm";
+import { fetchAllBooking, fetchbusById, seatBooking } from "../services/buses";
 
 const SeatBooking = () => {
   const { id } = useParams();
@@ -17,42 +18,39 @@ const SeatBooking = () => {
   const [formData, setFormData] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
-// const navigate = useNavigate();
+ 
   const [seatname, setSeatname] = useState([]);
   const [BookingDate, setBookingDate] = useState("");
   const [bookings, setbookings] = useState();
-const [totalCost, setTotalCost] = useState();
+  const [totalCost, setTotalCost] = useState();
   const fetchBookingByDate = async () => {
-    const response = await fetch(`http://localhost:5000/bookings`);
-    const data = await response.json();
-    console.log(data, "bookingswdawdawdawda");
-    setbookings(data);
+    try {
+      const bookings = await fetchAllBooking();
+    setbookings(bookings.data);
+    } catch (error) {
+      toast.error(`${error}`);
+    }
+  
   };
   const handleBookingSubmit = (formData) => {
     console.log("Form Data Received:", formData);
     setFormData(formData);
     closeFormModal();
     openBookingModal();
-    setTotalCost(seatname.length*750);
-
-    // You can process form data here (send to API, state management, etc.)
+    setTotalCost(seatname.length * 750);
   };
-  const userdata =JSON.parse(localStorage.getItem('userData')) 
+  const userdata = JSON.parse(localStorage.getItem("userData"));
   const fetchBus = useCallback(async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/buses/${id}`);
-      if (!response.ok) throw new Error("Failed to fetch bus data");
-      const data = await response.json();
-      setBus(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    const data = await fetchbusById({ id })
+
+    if (data) {
+      setBus(data.data);
+    } else {
+      toast.error(data.error);
     }
+    setLoading(false);
   }, [id]);
-  useEffect(() => {
-    console.log(seatname, "seatname");
-  });
+
   useEffect(() => {
     fetchBookingByDate();
   }, [BookingDate]);
@@ -70,7 +68,6 @@ const [totalCost, setTotalCost] = useState();
   };
   const closeFormModal = () => {
     setIsFormModalOpen(false);
-
   };
   const handleSeatClick = async (seatName) => {
     if (!BookingDate) {
@@ -78,8 +75,6 @@ const [totalCost, setTotalCost] = useState();
       return;
     }
     console.log(seatName, "seatName");
-
-    // Check if the seatName already exists in the seatname array
     if (!seatname.includes(seatName)) {
       setSeatname([...seatname, seatName]);
     } else {
@@ -90,7 +85,7 @@ const [totalCost, setTotalCost] = useState();
     return Math.floor(1000 + Math.random() * 9000).toString();
   }
   const handlePayment = () => {
-    window.location.href = "https://book.stripe.com/test_3cs00A8gLbSp1yw3cc"; // Replace with your payment link
+    window.location.href = "https://book.stripe.com/test_3cs00A8gLbSp1yw3cc";
   };
 
   const handleBooking = async () => {
@@ -106,29 +101,26 @@ const [totalCost, setTotalCost] = useState();
     };
     try {
       setIsBookingModalOpen(false);
-
-      const seatBook = await fetch(`http://localhost:5000/bookings`, {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(busBooking),
-      });
-      if (!seatBook.ok) {
-        throw new Error("Failed to add the booking in the booking list");
+      const seatBook = await seatBooking({ busBooking });
+      if(seatBook.status === 201){
+        fetchBookingByDate();
+        fetchBus();
+        setSeatname([]);
+        handlePayment();
+        toast.info("successfully done booking");
+      }else{
+        throw new Error("Unable to Confirm the seat. Book again in sometime");
+        
       }
-      fetchBookingByDate();
-      fetchBus();
-      setSeatname([]);
-handlePayment();
-      toast.info("successfully done booking");
+      
+      
     } catch (err) {
-      alert("Error booking the seat. Please try again.");
+      toast.error("Error booking the seat. Please try again.");
+      toast.error(`${err}`)
     }
   };
 
   const handleDateSelection = (date) => {
-    console.log("Selected Date now:", date);
     setBookingDate(date);
     setSeatname([]);
   };
@@ -183,9 +175,11 @@ handlePayment();
                           className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0 ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
-                            ) 
+                            )
                               ? "bg-red-600 text-white cursor-not-allowed"
-                              :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                              : seatname.includes(seat.name)
+                              ? "bg-yellow-400 text-white cursor-not-allowed"
+                              : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat?.name)
@@ -211,9 +205,11 @@ handlePayment();
                           className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
-                            ) 
+                            )
                               ? "bg-red-600 text-white cursor-not-allowed"
-                              :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                              : seatname.includes(seat.name)
+                              ? "bg-yellow-400 text-white cursor-not-allowed"
+                              : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat.name)
@@ -247,9 +243,11 @@ handlePayment();
                           className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
-                            ) 
+                            )
                               ? "bg-red-600 text-white cursor-not-allowed"
-                              :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                              : seatname.includes(seat.name)
+                              ? "bg-yellow-400 text-white cursor-not-allowed"
+                              : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat.name)
@@ -275,9 +273,11 @@ handlePayment();
                           className={`h-14 rounded w-16 mb-[0.5rem] lg:mb-0  ${
                             filteredBookings?.some((b) =>
                               b.seatno?.includes(seat.name)
-                            ) 
+                            )
                               ? "bg-red-600 text-white cursor-not-allowed"
-                              :  seatname.includes(seat.name)? "bg-yellow-400 text-white cursor-not-allowed":"bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                              : seatname.includes(seat.name)
+                              ? "bg-yellow-400 text-white cursor-not-allowed"
+                              : "bg-white border-2  text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                           }  font-semibold transition`}
                           disabled={filteredBookings?.some((b) =>
                             b.seatno.includes(seat.name)
@@ -310,45 +310,51 @@ handlePayment();
                 />
                 <h3 className="text-lg font-semibold mb-2">{bus.name}</h3>
                 <p className="mb-2 font-medium">Seats: {seatname.join(", ")}</p>
-                <p className="text-xl font-bold text-green-500">Total Fair: {totalCost}</p>
+                <p className="text-xl font-bold text-green-500">
+                  Total Fair: {totalCost}
+                </p>
               </div>
 
               <div className="mt-4 border-t pt-4">
-  <h3 className="text-xl font-bold mb-4 text-center">Passenger Details</h3>
-  {Object.entries(formData).map(([key, passenger], index) => (
-    <div key={index} className="mt-4 border-t pt-4">
-      <h3 className="text-lg font-bold mb-2 text-center">
-        {key.charAt(0).toUpperCase() + key.slice(1)} Details
-      </h3>
-      <ul className="space-y-2 text-gray-700">
-        <li>
-          <strong>Name:</strong> {passenger.name}
-        </li>
-        <li>
-          <strong>Age:</strong> {passenger.age}
-        </li>
-        <li>
-          <strong>Gender:</strong> {passenger.gender}
-        </li>
-        <li>
-          <strong>Aadhaar:</strong> {passenger.adhaarCardNo}
-        </li>
-        <li>
-          <strong>Phone:</strong> {passenger.phoneNumber}
-        </li>
-        <li>
-          <strong>Email:</strong> {passenger.email}
-        </li>
-      </ul>
-    </div>
-  ))}
-</div>
-
+                <h3 className="text-xl font-bold mb-4 text-center">
+                  Passenger Details
+                </h3>
+                {Object.entries(formData).map(([key, passenger], index) => (
+                  <div key={index} className="mt-4 border-t pt-4">
+                    <h3 className="text-lg font-bold mb-2 text-center">
+                      {key.charAt(0).toUpperCase() + key.slice(1)} Details
+                    </h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>
+                        <strong>Name:</strong> {passenger.name}
+                      </li>
+                      <li>
+                        <strong>Age:</strong> {passenger.age}
+                      </li>
+                      <li>
+                        <strong>Gender:</strong> {passenger.gender}
+                      </li>
+                      <li>
+                        <strong>Aadhaar:</strong> {passenger.adhaarCardNo}
+                      </li>
+                      <li>
+                        <strong>Phone:</strong> {passenger.phoneNumber}
+                      </li>
+                      <li>
+                        <strong>Email:</strong> {passenger.email}
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </ModalUtil>
 
             <ModalUtil isOpen={isFormModalOpen} onClose={closeFormModal}>
               {/* <UserForm onSubmit={handleFormSubmit}  /> */}
-             <BookingForm count={seatname.length} onSubmit={handleBookingSubmit} />
+              <BookingForm
+                count={seatname.length}
+                onSubmit={handleBookingSubmit}
+              />
             </ModalUtil>
           </div>
         </div>
