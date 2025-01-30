@@ -36,7 +36,7 @@ export const fetchUser = async () => {
 };
 
 export const changeUserRole = async({updatedUser})=>{
-    try {
+    try { 
         // console.log(updatedUser.id);
         const response = await fetch(
             `http://localhost:5000/users/${updatedUser.id}`,
@@ -60,3 +60,13 @@ export const changeUserRole = async({updatedUser})=>{
         }
     }
 }
+
+
+
+export const fetchPaginatedUsers = async (page, limit = 5) => {
+  const { data, headers } = await axios.get(`${API_URL}?_page=${page}&_limit=${limit}`);
+  return {
+    data,
+    total: parseInt(headers["x-total-count"]), // Extract total users from header
+  };
+};
