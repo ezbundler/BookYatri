@@ -85,8 +85,8 @@ const AdminHomePage = () => {
   };
 
   return (
-    <div className="p-6 min-h-screen flex flex-col sm:flex-row">
-      <div className="w-full sm:w-2/3 p-4">
+    <div className="p-6 min-h-screen flex flex-col md:flex-row">
+      <div className="w-full md:w-2/3 p-4">
         <h1 className="text-3xl font-bold mb-6 text-left">Buses</h1>
         <div className="grid gap-6">
           {buses.map((bus) => {
@@ -132,7 +132,7 @@ const AdminHomePage = () => {
         </div>
       </div>
 
-      <div className="w-full sm:w-1/3 p-4">
+      <div className="w-full md:w-1/3 p-4">
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold mb-4">User </h2>
           <Button
@@ -143,25 +143,27 @@ const AdminHomePage = () => {
         </div>
         <div className="grid grid-cols-1 gap-6">
           {users.slice(0, 4).map((user) => (
-            <div
-              key={user.id}
-              className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex gap-8 justify-around transition-transform transform hover:scale-105"
-              onClick={() => handleUserClick(user)}
-            >
-              <ProfileAvatar
-                keyword={user?.profile || "default"}
-                width="100px"
-                height="100px"
-              />
-
-              <div className="flex flex-col items-center text-center">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {user.name}
-                </h3>
-                <p className="text-gray-600 text-sm mb-1">{user.email}</p>
-                <p className="text-gray-600 text-sm">{user.phone}</p>
-              </div>
-            </div>
+           <div
+           key={user.id}
+           className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex flex-col lg:flex-row gap-8 justify-center sm:justify-around items-center transition-transform transform hover:scale-105"
+           onClick={() => handleUserClick(user)}
+         >
+           <ProfileAvatar
+             keyword={user?.profile || "default"}
+             width="100px"
+             height="100px"
+             className="mb-4 sm:mb-0" // margin for small screens to separate avatar
+           />
+         
+           <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+             <h3 className="text-xl font-bold text-gray-800 mb-2 sm:text-2xl">
+               {user.name}
+             </h3>
+             <p className="text-gray-600 text-sm mb-1 sm:text-base">{user.email}</p>
+             <p className="text-gray-600 text-sm sm:text-base">{user.phone}</p>
+           </div>
+         </div>
+         
           ))}
         </div>
       </div>

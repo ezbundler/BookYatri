@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { checkUserPresent, fetchUser } from "../services/user";
 import { signUpFunction } from "../services/auth";
 import { toast } from "react-toastify";
 import Button from "../utils.js/button";
+import { useDebounce } from "../utils.js/debounceHook";
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,17 +15,38 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
+  const debouncedEmail = useDebounce(email);
+  const debouncedPassword = useDebounce(password);
+  const debouncedname = useDebounce(name);
+
+
+  useEffect(()=>{
+if(debouncedEmail){
+  console.log("debounced email:",debouncedEmail);
+  
+}
+if(debouncedPassword){
+  console.log("debounced password:",debouncedPassword);
+  
+}
+if(debouncedname){
+  console.log("debounced name:",debouncedname);
+  
+}
+  },[debouncedEmail,debouncedname,debouncedPassword])
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    if (!name || !email || !password || !role) {
+    if (!debouncedname || !debouncedEmail || !debouncedPassword || !role) {
       setError("All fields are required.");
       setLoading(false);
       return;
     }
       const users = await fetchUser();
-      const response = await checkUserPresent({ email });
+      const response = await checkUserPresent({ email:debouncedEmail });
      if(users.statusCode !== 401){
       if (response===true) {
        toast.error("already user email exist! .try with different email")
@@ -35,9 +57,9 @@ const SignUpPage = () => {
       else if( response ===false) {
         const newUser = {
           id: (users.data.length + 1).toString(),
-          name,
-          email,
-          password,
+          name:debouncedname,
+          email:debouncedEmail,
+          password:debouncedPassword,
           role, // Include role in user data
         };
         signUpFunction({newUser});

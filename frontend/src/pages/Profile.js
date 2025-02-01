@@ -11,6 +11,7 @@ import ProfileAvatar from "../components/ProfileAvatar";
 import { fetchUser } from "../services/user";
 import { toast } from "react-toastify";
 import { fetchAllBooking } from "../services/buses";
+import { useDebounce } from "../utils.js/debounceHook";
 const Profile = () => {
   const [userData, setUserData] = useState({});
   const [user, setUser] = useState();
@@ -30,6 +31,10 @@ const Profile = () => {
     address: "",
     profile: "default",
   });
+
+  const debouncedFormData = useDebounce(formData);
+
+
 
   useEffect(() => {
     const userData = localStorage.getItem("userData");
@@ -98,13 +103,13 @@ const Profile = () => {
           },
           body: JSON.stringify({
             ...userData,
-            ...formData,
+            ...debouncedFormData,
             profile: selectedAvatar || userData.person,
           }),
         }
       );
       if (response.ok) {
-        setUserData({ ...userData, ...formData });
+        setUserData({ ...userData, ...debouncedFormData });
         setIsEditing(false);
         setnavbarIMg(!navbarImg);
       }
@@ -216,64 +221,58 @@ const Profile = () => {
         <div className="lg:w-1/3 w-full flex justify-center items-center h-screen">
           {bookings.length > 0 ? (
             <motion.ul
-              className="space-y-4 w-full p-6 bg-gray-100 rounded-lg shadow-xl overflow-y-auto h-[80%]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              {bookings.map((booking) => (
-                <li
-                  key={booking.id}
-                  className="border border-gray-300 p-6 rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow"
-                >
-                  <h3 className="text-xl font-bold text-blue-600 text-center mb-4">
-                    Booking Details
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
+            className="space-y-4 w-full p-6 bg-gray-100 rounded-lg shadow-xl overflow-y-auto h-[80%] sm:p-4 md:p-6 lg:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            {bookings.map((booking) => (
+              <li
+                key={booking.id}
+                className="border border-gray-300 p-6 rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow sm:p-4 md:p-6 lg:p-8"
+              >
+                <h3 className="text-xl font-bold text-blue-600 text-center mb-4 sm:text-lg md:text-xl lg:text-2xl">
+                  Booking Details
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                  <p>
+                    <strong>Bus ID:</strong> {booking.busId || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Seat(s):</strong> {booking.seatno?.join(", ") || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Date:</strong> {booking.date || "N/A"}
+                  </p>
+                </div>
+                <div className="mt-6 border-t pt-4">
+                  <h4 className="text-lg font-semibold text-gray-700 text-center mb-4 sm:text-base md:text-lg lg:text-xl">
+                    Passenger Info
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                     <p>
-                      <strong>Bus ID:</strong> {booking.busId || "N/A"}
+                      <strong>Name:</strong> {booking.userDetails?.name || "N/A"}
                     </p>
                     <p>
-                      <strong>Seat(s):</strong>{" "}
-                      {booking.seatno?.join(", ") || "N/A"}
+                      <strong>Age:</strong> {booking.userDetails?.age || "N/A"}
                     </p>
                     <p>
-                      <strong>Date:</strong> {booking.date || "N/A"}
+                      <strong>Gender:</strong> {booking.userDetails?.gender || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Aadhaar:</strong> {booking.userDetails?.adhaarCardNo || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {booking.userDetails?.phoneNumber || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {booking.userDetails?.email || "N/A"}
                     </p>
                   </div>
-                  <div className="mt-6 border-t pt-4">
-                    <h4 className="text-lg font-semibold text-gray-700 text-center mb-4">
-                      Passenger Info
-                    </h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      <p>
-                        <strong>Name:</strong>{" "}
-                        {booking.userDetails?.name || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Age:</strong>{" "}
-                        {booking.userDetails?.age || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Gender:</strong>{" "}
-                        {booking.userDetails?.gender || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Aadhaar:</strong>{" "}
-                        {booking.userDetails?.adhaarCardNo || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Phone:</strong>{" "}
-                        {booking.userDetails?.phoneNumber || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Email:</strong>{" "}
-                        {booking.userDetails?.email || "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </motion.ul>
+                </div>
+              </li>
+            ))}
+          </motion.ul>
+          
           ) : (
             <motion.div
               className="text-center bg-gray-100 p-8 rounded-lg shadow-xl"

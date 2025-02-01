@@ -127,6 +127,13 @@
       "email": "shyam@gmail.com",
       "password": "123456",
       "role": "user"
+    },
+    {
+      "id": "16",
+      "name": "akash",
+      "email": "aka@gmail.com",
+      "password": "admin@1234",
+      "role": "user"
     }
   ],
   "buses": [
