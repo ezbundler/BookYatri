@@ -141,7 +141,6 @@
       "id": "1",
       "name": "Indore-Bhopal Express",
       "route": "Indore to Bhopal",
-      "departure": "2025-01-20T10:00:00",
       "UpperSeats": [
         {
           "name": "U1",
@@ -391,7 +390,6 @@
       "id": "2",
       "name": "Indore-Ujjain Express",
       "route": "Indore to Ujjain",
-      "departure": "2025-01-20T10:00:00",
       "UpperSeats": [
         {
           "name": "U1",
@@ -609,6 +607,255 @@
           "name": "L19",
           "side": "right",
           "booked": false
+        },
+        {
+          "name": "L20",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L21",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L22",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L24",
+          "side": "right",
+          "booked": false
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "delhi-indore",
+      "route": "delhi to indore",
+      "UpperSeats": [
+        {
+          "name": "U1",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U2",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U3",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U4",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U5",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U7",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U8",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U9",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U10",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U11",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "U12",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "U13",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U14",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U15",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U16",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U17",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U18",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U19",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U20",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U21",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U22",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "U23",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "U24",
+          "side": "right",
+          "booked": true
+        }
+      ],
+      "LowerSeats": [
+        {
+          "name": "L1",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L2",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L3",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L4",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L5",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L6",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L7",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L8",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L9",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L10",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L11",
+          "side": "left",
+          "booked": true
+        },
+        {
+          "name": "L12",
+          "side": "left",
+          "booked": false
+        },
+        {
+          "name": "L13",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L14",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L15",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L16",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L17",
+          "side": "right",
+          "booked": true
+        },
+        {
+          "name": "L18",
+          "side": "right",
+          "booked": false
+        },
+        {
+          "name": "L19",
+          "side": "right",
+          "booked": true
         },
         {
           "name": "L20",

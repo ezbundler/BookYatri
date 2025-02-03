@@ -15,12 +15,14 @@ import { toast } from "react-toastify";
 import { changeUserRole, fetchUser } from "../services/user";
 import Button from "../utils.js/button";
 import UserListWithPagination from "./UserPagination";
+import BusServiceForm from "./BusServiceForm";
 
 const AdminHomePage = () => {
   const [buses, setBuses] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isUserListModalOpen, setIsUserListModalOpen] = useState(false);
+  const [isBusCreationModalOpen, setIsBusCreationModalOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     fetchBuses();
@@ -31,6 +33,7 @@ const AdminHomePage = () => {
     const buses = await fetchbuses();
     if (buses.statusCode !== 401) {
       setBuses(buses.buses);
+      console.log(buses.buses,"buses data for the new creation and checking");
       return;
     } else {
       toast.error(`${buses.error}`);
@@ -84,10 +87,30 @@ const AdminHomePage = () => {
     }
   };
 
+
+const openBusCreationModel = ()=>{
+setIsBusCreationModalOpen(true);
+}
+const closeBusCreationModel = ()=>{
+setIsBusCreationModalOpen(false);
+}
+
+
+
+//   const handleNewBusCreation = (busData)=>{
+// console.log(busData,"busdata in the creation of the new bus");
+
+//   }
+
   return (
     <div className="p-6 min-h-screen flex flex-col md:flex-row">
       <div className="w-full md:w-2/3 p-4">
+      <div className="flex justify-between">
+
         <h1 className="text-3xl font-bold mb-6 text-left">Buses</h1>
+        <button onClick={openBusCreationModel} className="mb-4 hover:bg-yellow-500 hover:text-white text-slate-400 p-2 rounded">Add A bus</button>
+
+      </div>
         <div className="grid gap-6">
           {buses.map((bus) => {
             let totalseat = bus.UpperSeats?.length || 0 + bus.LowerSeats.length;
@@ -171,6 +194,11 @@ const AdminHomePage = () => {
       <ModalUtil isOpen={isUserListModalOpen} onClose={closeUserListModal}>
         <UserListWithPagination handleUserClick={handleUserClick} />
       </ModalUtil>
+      
+      <ModalUtil isOpen={isBusCreationModalOpen} onClose={closeBusCreationModel}>
+       <BusServiceForm onClose={closeBusCreationModel} />
+      </ModalUtil>
+      
       {selectedUser && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-3/4">
