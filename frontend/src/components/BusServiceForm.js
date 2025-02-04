@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import busImage from "../images/bus1.png";
+import { toast } from "react-toastify";
 
-const BusServiceForm = ({ onClose }) => {
+const BusServiceForm = ({ onClose, fetchbuses }) => {
   const [busName, setBusName] = useState("");
   const [busRoute, setBusRoute] = useState("");
   const [busList, setBusList] = useState([]);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    // Fetch existing buses from the backend
     const fetchBuses = async () => {
       try {
         const response = await fetch("http://localhost:5000/buses");
@@ -27,33 +28,63 @@ const BusServiceForm = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate form inputs
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     const newBusData = {
-      id: (busList.length + 1).toString(), // Set the new ID based on the bus list length
+      id: (busList.length + 1).toString(),
       name: busName,
       route: busRoute,
       UpperSeats: generateSeats("U"),
       LowerSeats: generateSeats("L"),
     };
+
     handleCreateNewBus(newBusData);
     setBusName("");
     setBusRoute("");
     onClose();
+    fetchbuses();
   };
 
-  // Generate seats dynamically based on prefix
+  // Form validation with real-time feedback on blur (when field loses focus)
+  const validateForm = () => {
+    const validationErrors = {};
+  
+    // Bus name can contain letters, numbers, space, hyphen, and slash
+    if (!busName.trim()) {
+      validationErrors.busName = "Bus name is required.";
+    } else if (/[^a-zA-Z0-9\s/-]/g.test(busName)) {
+      validationErrors.busName = "Bus name should only contain letters, numbers, spaces, hyphens, or slashes.";
+    }
+  
+    // Bus route can contain letters, numbers, space, hyphen, and slash
+    if (!busRoute.trim()) {
+      validationErrors.busRoute = "Bus route is required.";
+    } else if (/[^a-zA-Z0-9\s/-]/g.test(busRoute)) {
+      validationErrors.busRoute = "Bus route should only contain letters, numbers, spaces, hyphens, or slashes.";
+    }
+  
+    return validationErrors;
+  };
+  
+
   const generateSeats = (prefix) => {
     const seats = [];
     for (let i = 1; i <= 24; i++) {
       seats.push({
         name: `${prefix}${i}`,
         side: i <= 6 ? "left" : "right",
-        booked: Math.random() > 0.7, // Random booking status
+        booked: Math.random() > 0.7,
       });
     }
     return seats;
   };
 
-  // Create a new bus in the backend
   const handleCreateNewBus = async (busData) => {
     try {
       const response = await fetch("http://localhost:5000/buses", {
@@ -64,13 +95,31 @@ const BusServiceForm = ({ onClose }) => {
         body: JSON.stringify(busData),
       });
       if (response.ok) {
-        console.log("Bus created successfully:", busData);
+        
+        toast.success(`${busData.name} created successfully!`)
       } else {
-        console.error("Failed to create a new bus.");
+        toast.error("Failed to create a new bus.");
       }
     } catch (error) {
-      console.error("Error while creating a new bus:", error);
+      toast.error("Error while creating a new bus:", error);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "busName") {
+      setBusName(value);
+      setErrors((prev) => ({ ...prev, busName: "" }));
+    } else if (name === "busRoute") {
+      setBusRoute(value);
+      setErrors((prev) => ({ ...prev, busRoute: "" }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    const validationErrors = validateForm();
+    setErrors((prev) => ({ ...prev, [name]: validationErrors[name] }));
   };
 
   return (
@@ -103,12 +152,19 @@ const BusServiceForm = ({ onClose }) => {
               </label>
               <input
                 type="text"
+                name="busName"
                 value={busName}
-                onChange={(e) => setBusName(e.target.value)}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="Enter bus name"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.busName ? "border-red-500" : "focus:ring-blue-500"
+                }`}
                 required
               />
+              {errors.busName && (
+                <p className="text-red-500 text-sm mt-1">{errors.busName}</p>
+              )}
             </div>
             <div>
               <label className="block text-lg font-medium mb-1 text-gray-700">
@@ -116,12 +172,19 @@ const BusServiceForm = ({ onClose }) => {
               </label>
               <input
                 type="text"
+                name="busRoute"
                 value={busRoute}
-                onChange={(e) => setBusRoute(e.target.value)}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="Enter bus route"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.busRoute ? "border-red-500" : "focus:ring-blue-500"
+                }`}
                 required
               />
+              {errors.busRoute && (
+                <p className="text-red-500 text-sm mt-1">{errors.busRoute}</p>
+              )}
             </div>
             <button
               type="submit"

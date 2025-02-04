@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ModalUtil = ({ isOpen, onClose, children, onSubmit }) => {
   if (!isOpen) return null;
@@ -14,29 +14,32 @@ const ModalUtil = ({ isOpen, onClose, children, onSubmit }) => {
       className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center p-4 sm:p-6 z-[9999]"
       onClick={handleBackdropClick}
     >
-      <div 
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto"
-      >
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] relative overflow-y-auto">
+        {/* Close Icon */}
+        {onClose && (
+          <button
+          onClick={onClose}
+          className="absolute top-2 right-4 w-8 h-8 rounded-full text-gray-500 hover:text-red-600 text-4xl font-bold   flex items-center text-center justify-center"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        
+        )}
+
         {children}
 
-        <div className="flex gap-4 justify-center mt-4">
-          {onClose && (
-            <button
-              className="bg-red-500 hover:bg-white hover:border border-red-500 hover:text-red-600 text-white px-4 py-2 rounded transition"
-              onClick={onClose}
-            >
-              Close
-            </button>
-          )}
-          {onSubmit && (
+        {/* Submit Button */}
+        {onSubmit && (
+          <div className="flex justify-center mt-4">
             <button
               className="bg-slate-500 hover:bg-blue-500 text-white px-4 py-2 rounded transition"
               onClick={onSubmit}
             >
               Submit
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

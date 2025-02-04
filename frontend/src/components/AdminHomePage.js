@@ -165,7 +165,7 @@ setIsBusCreationModalOpen(false);
           />
         </div>
         <div className="grid grid-cols-1 gap-6">
-          {users.slice(0, 4).map((user) => (
+          {users.slice(0, 3).map((user) => (
            <div
            key={user.id}
            className="relative bg-white border-2 border-yellow-300 hover:border-red-600 shadow-lg p-6 rounded-lg cursor-pointer flex flex-col lg:flex-row gap-8 justify-center sm:justify-around items-center transition-transform transform hover:scale-105"
@@ -196,7 +196,7 @@ setIsBusCreationModalOpen(false);
       </ModalUtil>
       
       <ModalUtil isOpen={isBusCreationModalOpen} onClose={closeBusCreationModel}>
-       <BusServiceForm onClose={closeBusCreationModel} />
+       <BusServiceForm onClose={closeBusCreationModel} fetchbuses={fetchBuses} />
       </ModalUtil>
       
       {selectedUser && (

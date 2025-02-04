@@ -23,21 +23,59 @@ const UserForm = ({ index, onFormChange }) => {
   };
 
   // Validate form data
-  const validate = () => {
+  const validate = (e) => {
+    console.log("Validating:", e.target.name);
+    const { name, value } = e.target;
     const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required.";
-    if (!formData.age) newErrors.age = "Age is required.";
-    if (!formData.gender) newErrors.gender = "Gender is required.";
-    if (!formData.adhaarCardNo.match(/^\d{12}$/))
-      newErrors.adhaarCardNo = "Aadhaar Card No must be 12 digits.";
-    if (!formData.phoneNumber.match(/^\d{10}$/))
-      newErrors.phoneNumber = "Phone Number must be 10 digits.";
-    if (!formData.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
-      newErrors.email = "Invalid email address.";
-
+  
+    if (name === "name") {
+      if (!value.trim()) {
+        newErrors.name = "Name is required.";
+      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+        newErrors.name = "Name should only contain alphabets.";
+      }
+    }
+  
+    if (name === "age") {
+      if (!value.trim()) {
+        newErrors.age = "Age is required.";
+      } else if (isNaN(value) || value <= 0 || value > 120) {
+        newErrors.age = "Please enter a valid age.";
+      }
+    }
+  
+    if (name === "gender") {
+      if (!value.trim()) {
+        newErrors.gender = "Gender is required.";
+      }
+    }
+  
+    if (name === "adhaarCardNo") {
+      if (!/^\d{12}$/.test(value)) {
+        newErrors.adhaarCardNo =
+          "Aadhaar Card No must be exactly 12 digits and contain only numbers.";
+      }
+    }
+  
+    if (name === "phoneNumber") {
+      if (!/^\d{10}$/.test(value)) {
+        newErrors.phoneNumber =
+          "Phone Number must be exactly 10 digits and contain only numbers.";
+      }
+    }
+  
+    if (name === "email") {
+      if (
+        !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value)
+      ) {
+        newErrors.email = "Invalid email address.";
+      }
+    }
+  
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; 
+    return Object.keys(newErrors).length === 0;
   };
+  
 
   
   const handleSubmit = (e) => {
@@ -57,7 +95,10 @@ const UserForm = ({ index, onFormChange }) => {
           type="text"
           name="name"
           value={formData.name}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
@@ -70,7 +111,10 @@ const UserForm = ({ index, onFormChange }) => {
           type="number"
           name="age"
           value={formData.age}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
@@ -82,7 +126,10 @@ const UserForm = ({ index, onFormChange }) => {
         <select
           name="gender"
           value={formData.gender}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           className="w-full p-2 border border-gray-300 rounded"
         >
@@ -100,7 +147,10 @@ const UserForm = ({ index, onFormChange }) => {
           type="text"
           name="adhaarCardNo"
           value={formData.adhaarCardNo}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           pattern="\d{12}"
           maxLength="12"
@@ -115,7 +165,10 @@ const UserForm = ({ index, onFormChange }) => {
           type="tel"
           name="phoneNumber"
           value={formData.phoneNumber}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           pattern="[0-9]{10}"
           maxLength="10"
@@ -130,7 +183,10 @@ const UserForm = ({ index, onFormChange }) => {
           type="email"
           name="email"
           value={formData.email}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            validate(e);
+          }}
           required
           className="w-full p-2 border border-gray-300 rounded"
         />
