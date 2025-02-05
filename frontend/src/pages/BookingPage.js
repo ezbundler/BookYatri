@@ -28,6 +28,8 @@ const SeatBooking = () => {
     try {
       const bookings = await fetchAllBooking();
       setbookings(bookings.data);
+      console.log(bookings.data,"bookings data");
+      
     } catch (error) {
       toast.error(`${error}`);
     }
