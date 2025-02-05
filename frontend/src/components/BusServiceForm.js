@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import busImage from "../images/bus1.png";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const BusServiceForm = ({ onClose, fetchbuses }) => {
   const [busName, setBusName] = useState("");
@@ -37,12 +38,13 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
     }
 
     const newBusData = {
-      id: (busList.length + 1).toString(),
-      name: busName,
-      route: busRoute,
-      UpperSeats: generateSeats("U"),
-      LowerSeats: generateSeats("L"),
-    };
+        id: (Math.floor(1000 + Math.random() * 9000)).toString(),
+        name: busName,
+        route: busRoute,
+        UpperSeats: generateSeats("U"),
+        LowerSeats: generateSeats("L"),
+      };
+      
 
     handleCreateNewBus(newBusData);
     setBusName("");
@@ -87,23 +89,23 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
 
   const handleCreateNewBus = async (busData) => {
     try {
-      const response = await fetch("http://localhost:5000/buses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(busData),
-      });
-      if (response.ok) {
-        
-        toast.success(`${busData.name} created successfully!`)
-      } else {
-        toast.error("Failed to create a new bus.");
-      }
+        console.log(busData, "data before creating bus");
+        const response = await axios.post("http://localhost:5000/buses", busData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.status === 201 || response.status === 200) {
+            toast.success(`${busData.name} created successfully!`);
+        } else {
+            toast.error("Failed to create a new bus.");
+        }
     } catch (error) {
-      toast.error("Error while creating a new bus:", error);
+        toast.error("Error while creating a new bus: " + error.message);
     }
-  };
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -123,9 +125,9 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
   };
 
   return (
-    <div className="flex flex-col bg-white p-6 rounded-lg w-full">
+    <div className="flex flex-col mt-4 bg-white p-6 rounded-lg w-full">
       <div className="text-center">
-        <h2 className="text-3xl font-bold mb-6 text-blue-600">
+        <h2 className="text-3xl font-bold mb-6 text-gray-400">
           Create New Bus Service
         </h2>
       </div>
@@ -158,7 +160,7 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
                 onBlur={handleBlur}
                 placeholder="Enter bus name"
                 className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.busName ? "border-red-500" : "focus:ring-blue-500"
+                  errors.busName ? "border-red-500" : "focus:ring-yellow-400"
                 }`}
                 required
               />
@@ -178,7 +180,7 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
                 onBlur={handleBlur}
                 placeholder="Enter bus route"
                 className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.busRoute ? "border-red-500" : "focus:ring-blue-500"
+                  errors.busRoute ? "border-red-500" : "focus:ring-yellow-400"
                 }`}
                 required
               />
@@ -188,7 +190,7 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 transition"
+              className="w-full bg-yellow-400 text-white font-semibold hover:text-yellow-400 py-2 px-4 rounded-md hover:bg-white  border-2 border-yellow-400 transition"
             >
               Create Bus Service
             </button>
