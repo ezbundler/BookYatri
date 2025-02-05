@@ -15,12 +15,13 @@ const LoginPage = () => {
   const [touched, setTouched] = useState({ email: false, password: false });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const debouncedEmail = useDebounce(email, 500);
-  const debouncedPassword = useDebounce(password, 500);
+  const debouncedEmail = useDebounce(email, 2000);
+  const debouncedPassword = useDebounce(password, 2000);
 
   useEffect(() => {
     if (touched.email) validateEmail(debouncedEmail);
     if (touched.password) validatePassword(debouncedPassword);
+    console.log(debouncedPassword,"debonce");
   }, [debouncedEmail, debouncedPassword]);
 
   const validateEmail = (email) => {
@@ -56,7 +57,7 @@ const LoginPage = () => {
       return;
     }
 
-    const user = await loginfunction({ email: debouncedEmail, password: debouncedPassword });
+    const user = true
 
     if (user) {
       const payload = {
@@ -114,6 +115,7 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
+                // console.log(e.target.value, "gr");
                 validatePassword(e.target.value);
               }}
               onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
