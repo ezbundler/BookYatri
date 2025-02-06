@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import heroIMG from "../images/conductor.png";
-import Navbar from "../components/Navbar";
-import AdminHome from "../components/AdminHomePage";
 import { toast } from "react-toastify";
 import { fetchbuses } from "../services/buses";
-import Button from "../utils.js/button";
+
+// Lazy loading components
+const Navbar = lazy(() => import("../components/Navbar"));
+const AdminHome = lazy(() => import("../components/AdminHomePage"));
+const Button = lazy(() => import("../utils.js/button"));
 
 const HomePage = () => {
   const [busList, setBusList] = useState();
   const [user, setUser] = useState();
   const navigate = useNavigate();
+
   const handleBooking = (id) => {
     navigate(`/seatBooking/${id}`);
   };
@@ -44,12 +46,13 @@ const HomePage = () => {
     fetchUser();
     LoadBuses();
   }, []);
+
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Navbar />
       {user?.role === "user" ? (
         <>
-          <div className="lg:h-[89vh]  flex flex-col lg:flex-row items-center justify-between p-8">
+          <div className="lg:h-[89vh] flex flex-col lg:flex-row items-center justify-between p-8">
             <div className="flex flex-col items-center justify-center rounded-lg lg:h-full lg:ml-10 space-y-6 w-full lg:w-[60%] py-4">
               <h1 className="text-4xl font-bold mb-4 text-center text-red-600">
                 Welcome to Your Hero Page
@@ -92,7 +95,7 @@ const HomePage = () => {
       ) : (
         <AdminHome />
       )}
-    </>
+    </Suspense>
   );
 };
 

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
-import ModalUtil from "../utils.js/Modal";
 import noBookingsImage from "../images/logo2.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { ProfileSelector } from "../components/ProfileSelector";
-import ProfileAvatar from "../components/ProfileAvatar";
-import { fetchUser } from "../services/user";
 import { toast } from "react-toastify";
-import { fetchAllBooking } from "../services/buses";
 import { useDebounce } from "../utils.js/debounceHook";
+import { fetchUser } from "../services/user";
+import { fetchAllBooking } from "../services/buses";
+
+const Navbar = lazy(() => import("../components/Navbar"));
+const ModalUtil = lazy(() => import("../utils.js/Modal"));
+const ProfileSelector = lazy(() => import("../components/ProfileSelector"));
+const ProfileAvatar = lazy(() => import("../components/ProfileAvatar"));
+
 const Profile = () => {
   const [userData, setUserData] = useState({});
   const [user, setUser] = useState();
@@ -33,8 +35,6 @@ const Profile = () => {
   });
 
   const debouncedFormData = useDebounce(formData);
-
-
 
   useEffect(() => {
     const userData = localStorage.getItem("userData");
@@ -65,10 +65,11 @@ const Profile = () => {
           toast.error(`${users.error}. Please try again later`);
         }
       } catch (error) {
-        toast.error (`${error}`);
+        toast.error(`${error}`);
       }
     };
     fetchUserDetails();
+
     const fetchBookings = async () => {
       try {
         const bookings = await fetchAllBooking();
@@ -130,21 +131,23 @@ const Profile = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
   const handleAvatarSelectorOpen = () => {
     setisAvatarSelectorOpen(true);
   };
+
   const handleAvatarSelectorClose = () => {
     setisAvatarSelectorOpen(false);
   };
 
   const handleAvatarSelection = (keyword) => {
     setSelectedAvatar(keyword);
-    console.log("Selected Avatar:", keyword);
   };
+
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Navbar profilepic={navbarImg} />
-      <div className="flex flex-col lg:flex-row items-center border justify-center min-h-[70%]  gap-6 p-6">
+      <div className="flex flex-col lg:flex-row items-center border justify-center min-h-[70%] gap-6 p-6">
         <motion.div
           className="lg:w-2/3 w-full p-6 bg-white shadow-md rounded-md relative"
           initial={{ opacity: 0, x: -50 }}
@@ -152,8 +155,7 @@ const Profile = () => {
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4 ">
-              <div className=" relative flex items-center justify-center bg-red-600 text-white text-2xl font-bold rounded-full">
-                {/* {formData.name.charAt(0).toUpperCase()} */}
+              <div className="relative flex items-center justify-center bg-red-600 text-white text-2xl font-bold rounded-full">
                 <ProfileAvatar
                   keyword={selectedAvatar || userData?.profile}
                   width="150px"
@@ -214,65 +216,62 @@ const Profile = () => {
               Save
             </button>
           )}
-          <div className="mt-6 flex flex-col sm:flex-row sm:space-x-4">
-          </div>
         </motion.div>
 
         <div className="lg:w-1/3 w-full flex justify-center items-center h-screen">
           {bookings.length > 0 ? (
             <motion.ul
-            className="space-y-4 w-full p-6 bg-gray-100 rounded-lg shadow-xl overflow-y-auto h-[80%] sm:p-4 md:p-6 lg:p-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {bookings.map((booking) => (
-              <li
-                key={booking.id}
-                className="border border-gray-300 p-6 rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow sm:p-4 md:p-6 lg:p-8"
-              >
-                <h3 className="text-xl font-bold text-blue-600 text-center mb-4 sm:text-lg md:text-xl lg:text-2xl">
-                  Booking Details
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                  <p>
-                    <strong>Bus ID:</strong> {booking.busId || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Seat(s):</strong> {booking.seatno?.join(", ") || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Date:</strong> {booking.date || "N/A"}
-                  </p>
-                </div>
-                <div className="mt-6 border-t pt-4">
-                  <h4 className="text-lg font-semibold text-gray-700 text-center mb-4 sm:text-base md:text-lg lg:text-xl">
-                    Passenger Info
-                  </h4>
+              className="space-y-4 w-full p-6 bg-gray-100 rounded-lg shadow-xl overflow-y-auto h-[80%] sm:p-4 md:p-6 lg:p-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {bookings.map((booking) => (
+                <li
+                  key={booking.id}
+                  className="border border-gray-300 p-6 rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow sm:p-4 md:p-6 lg:p-8"
+                >
+                  <h3 className="text-xl font-bold text-blue-600 text-center mb-4 sm:text-lg md:text-xl lg:text-2xl">
+                    Booking Details
+                  </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                     <p>
-                      <strong>Name:</strong> {booking.userDetails?.name || "N/A"}
+                      <strong>Bus ID:</strong> {booking.busId || "N/A"}
                     </p>
                     <p>
-                      <strong>Age:</strong> {booking.userDetails?.age || "N/A"}
+                      <strong>Seat(s):</strong> {booking.seatno?.join(", ") || "N/A"}
                     </p>
                     <p>
-                      <strong>Gender:</strong> {booking.userDetails?.gender || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Aadhaar:</strong> {booking.userDetails?.adhaarCardNo || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Phone:</strong> {booking.userDetails?.phoneNumber || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Email:</strong> {booking.userDetails?.email || "N/A"}
+                      <strong>Date:</strong> {booking.date || "N/A"}
                     </p>
                   </div>
-                </div>
-              </li>
-            ))}
-          </motion.ul>
-          
+                  <div className="mt-6 border-t pt-4">
+                    <h4 className="text-lg font-semibold text-gray-700 text-center mb-4 sm:text-base md:text-lg lg:text-xl">
+                      Passenger Info
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                      <p>
+                        <strong>Name:</strong> {booking.userDetails?.name || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Age:</strong> {booking.userDetails?.age || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Gender:</strong> {booking.userDetails?.gender || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Aadhaar:</strong> {booking.userDetails?.adhaarCardNo || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {booking.userDetails?.phoneNumber || "N/A"}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {booking.userDetails?.email || "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </motion.ul>
           ) : (
             <motion.div
               className="text-center bg-gray-100 p-8 rounded-lg shadow-xl"
@@ -302,14 +301,14 @@ const Profile = () => {
             </motion.div>
           )}
         </div>
-        <ModalUtil
-          isOpen={isAvatarSelectorOpen}
-          onClose={handleAvatarSelectorClose}
-        >
-          <ProfileSelector onSelectAvatar={handleAvatarSelection} />
-        </ModalUtil>
+
+        <Suspense fallback={<div>Loading Avatar Selector...</div>}>
+          <ModalUtil isOpen={isAvatarSelectorOpen} onClose={handleAvatarSelectorClose}>
+            <ProfileSelector onSelectAvatar={handleAvatarSelection} />
+          </ModalUtil>
+        </Suspense>
       </div>
-    </>
+    </Suspense>
   );
 };
 

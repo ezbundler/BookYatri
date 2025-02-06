@@ -141,6 +141,13 @@
       "email": "test11@mail.com",
       "password": "123456",
       "role": "admin"
+    },
+    {
+      "id": "9061",
+      "name": "shiv",
+      "email": "shiv@gmail.com",
+      "password": "123456",
+      "role": "user"
     }
   ],
   "buses": [
@@ -893,7 +900,7 @@
     }
   ],
   "bookings": [
-        {
+    {
       "id": "6878",
       "useremail": "akash@gmail.com",
       "seatno": [
@@ -976,6 +983,5 @@
         }
       }
     }
-  
   ]
 }
