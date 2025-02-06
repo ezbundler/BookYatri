@@ -6,18 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBus } from "@fortawesome/free-solid-svg-icons";
 import ModalUtil from "../utils.js/Modal";
 import ProfileAvatar from "./ProfileAvatar";
-import { fetchbuses } from "../services/buses";
+import { fetchAllBooking, fetchbuses } from "../services/buses";
 import { toast } from "react-toastify";
 import { changeUserRole, fetchUser } from "../services/user";
 import Button from "../utils.js/button";
 import UserListWithPagination from "./UserPagination";
 import BusServiceForm from "./BusServiceForm";
 import BusDetail from "./BusDetail";
+import ExportButton from "./Dataimport";
 
 const AdminHomePage = () => {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState([]);
-  
+  const [booking,setBooking] = useState();
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isUserListModalOpen, setIsUserListModalOpen] = useState(false);
@@ -29,7 +30,16 @@ const AdminHomePage = () => {
     fetchUsers();
   }, [isBusDetailModalOpen,isBusCreationModalOpen]);
 
+useEffect(()=>{
+  const getBooking = async ()=>{
+    const res =await fetchAllBooking();
+    console.log(res,"bookinf data");
+    setBooking(res.data);
+  }
 
+  getBooking();
+
+},[])
 
   const fetchBuses = async () => {
     const buses = await fetchbuses();
@@ -104,7 +114,11 @@ const AdminHomePage = () => {
 
   return (
     <div className="p-6 min-h-screen flex flex-col md:flex-row">
+    <div>
+    <ExportButton bookings={booking} />
+    </div>
       <div className="w-full md:w-2/3 p-4">
+
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold mb-6 text-left">Buses</h1>
           <button
