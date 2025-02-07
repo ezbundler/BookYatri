@@ -1,13 +1,13 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import { fetchAllBooking, fetchbuses } from "../services/buses";
-import { changeUserRole, fetchUser } from "../services/user";
+import { fetchbuses } from "../services/buses";
+import { changeUserData, fetchUser } from "../services/user";
 import busImage from "../images/bus1.png";
 import LoaderModal from "./Loader";
+import Navbar from "./Navbar";
 
 const ModalUtil = lazy(() => import("../utils.js/Modal"));
 const ProfileAvatar = lazy(() => import("./ProfileAvatar"));
@@ -15,30 +15,23 @@ const Button = lazy(() => import("../utils.js/button"));
 const UserListWithPagination = lazy(() => import("./UserPagination"));
 const BusServiceForm = lazy(() => import("./BusServiceForm"));
 const BusDetail = lazy(() => import("./BusDetail"));
-const ExportButton = lazy(() => import("./Dataimport"));
+// const ExportButton = lazy(() => import("./Dataimport"));
 
 const AdminHomePage = () => {
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState([]);
-  const [booking, setBooking] = useState();
+
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isUserListModalOpen, setIsUserListModalOpen] = useState(false);
   const [isBusCreationModalOpen, setIsBusCreationModalOpen] = useState(false);
   const [isBusDetailModalOpen, setIsBusDetailModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBuses();
-    fetchUsers();
   }, [isBusDetailModalOpen, isBusCreationModalOpen]);
-
   useEffect(() => {
-    const getBooking = async () => {
-      const res = await fetchAllBooking();
-      setBooking(res.data);
-    };
-    getBooking();
+    fetchUsers();
   }, []);
 
   const fetchBuses = async () => {
@@ -79,11 +72,7 @@ const AdminHomePage = () => {
   };
 
   const handleSubmitRoleChange = async () => {
-    const updatedUser = {
-      ...selectedUser,
-      role: selectedUser.role,
-    };
-    const response = await changeUserRole({ updatedUser });
+    const response = await changeUserData(selectedUser);
     if (response.statusCode === 201) {
       const updatedUserData = await response.data.json();
       setSelectedUser(updatedUserData);
@@ -115,11 +104,10 @@ const AdminHomePage = () => {
   };
 
   return (
-    <Suspense fallback={<LoaderModal/>}>
+    <Suspense fallback={<LoaderModal />}>
+      <Navbar />
       <div className="p-6 min-h-screen flex flex-col md:flex-row">
-        <div>
-          <ExportButton bookings={booking} />
-        </div>
+        <div>{/* <ExportButton bookings={booking} /> */}</div>
         <div className="w-full md:w-2/3 p-4">
           <div className="flex justify-between">
             <h1 className="text-3xl font-bold mb-6 text-left">Buses</h1>
@@ -203,8 +191,14 @@ const AdminHomePage = () => {
           <BusDetail busId={selectedBus?.id} onClose={closeBusDetailModel} />
         </ModalUtil>
 
-        <ModalUtil isOpen={isBusCreationModalOpen} onClose={closeBusCreationModel}>
-          <BusServiceForm onClose={closeBusCreationModel} fetchbuses={fetchBuses} />
+        <ModalUtil
+          isOpen={isBusCreationModalOpen}
+          onClose={closeBusCreationModel}
+        >
+          <BusServiceForm
+            onClose={closeBusCreationModel}
+            fetchbuses={fetchBuses}
+          />
         </ModalUtil>
 
         {selectedUser && (
@@ -223,7 +217,9 @@ const AdminHomePage = () => {
               )}
 
               <div className="mt-4">
-                <label className="block text-sm font-medium">Change Role:</label>
+                <label className="block text-sm font-medium">
+                  Change Role:
+                </label>
                 <select
                   className="p-2 border rounded w-full"
                   value={selectedUser.role}

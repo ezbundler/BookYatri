@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { checkUserPresent, fetchUser } from "../services/user";
+import { checkUserPresent } from "../services/user";
 import { signUpFunction } from "../services/auth";
 import { toast } from "react-toastify";
 
@@ -24,11 +24,20 @@ const SignUpPage = () => {
   const debouncedPassword = useDebounce(password);
   const debouncedName = useDebounce(name);
 
+
+  const formdata = {
+    id: (Math.floor(1000 + Math.random() * 9000)).toString(),
+    name:debouncedName,
+    email: debouncedEmail,
+    password:debouncedPassword,
+    role: role
+  }
+
   useEffect(() => {
     if (touched.name) validateName(debouncedName);
     if (touched.email) validateEmail(debouncedEmail);
     if (touched.password) validatePassword(debouncedPassword);
-  }, [debouncedName, debouncedEmail, debouncedPassword]);
+  }, [debouncedName, debouncedEmail, debouncedPassword, touched]);
 
   const validateName = (name) => {
     if (!name) {
@@ -68,7 +77,7 @@ const SignUpPage = () => {
     setLoading(true);
 
     if (Object.values(errors).some((error) => error !== "") || !name || !email || !password) {
-      toast.error("Please fix validation errors.");
+      toast.error("Please Complete the form.");
       setLoading(false);
       return;
     }
@@ -80,14 +89,7 @@ const SignUpPage = () => {
       setLoading(false);
       return;
     } else if (response === false) {
-      const newUser = {
-        id: (Math.floor(1000 + Math.random() * 9000)).toString(),
-        name: debouncedName,
-        email: debouncedEmail,
-        password: debouncedPassword,
-        role,
-      };
-      signUpFunction({ newUser });
+      signUpFunction({ formdata });
       setLoading(false);
       toast.success("Account created successfully. Please login to start using BookYatri!");
       navigate("/home");
@@ -101,7 +103,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoaderModal/>}>
         <Navbar />
       </Suspense>
       <div className="min-h-screen flex flex-col items-center justify-center">

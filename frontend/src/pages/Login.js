@@ -4,7 +4,7 @@ import jwt from "jwt-encode";
 import { loginfunction } from "../services/auth";
 import { toast } from "react-toastify";
 
-// Lazy loading components
+
 const Navbar = React.lazy(() => import("../components/Navbar"));
 const LoaderModal = React.lazy(() => import("../components/Loader"));
 const Button = React.lazy(() => import("../utils.js/button"));

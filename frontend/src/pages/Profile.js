@@ -6,19 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { useDebounce } from "../utils.js/debounceHook";
-import { fetchUser } from "../services/user";
-import { fetchAllBooking } from "../services/buses";
+import { changeUserData, fetchUser } from "../services/user";
 
+import { ProfileSelector } from "../components/ProfileSelector";
+import { fetchAllBooking } from "../services/bookings";
+import LoaderModal from "../components/Loader";
 const Navbar = lazy(() => import("../components/Navbar"));
 const ModalUtil = lazy(() => import("../utils.js/Modal"));
-const ProfileSelector = lazy(() => import("../components/ProfileSelector"));
+// const ProfileSelector = lazy(() => import("../components/ProfileSelector"));
 const ProfileAvatar = lazy(() => import("../components/ProfileAvatar"));
 
 const Profile = () => {
-  const [userData, setUserData] = useState({});
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [bookings, setBookings] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [isAvatarSelectorOpen, setisAvatarSelectorOpen] = useState(false);
@@ -26,6 +27,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     email: "",
     phone: "",
@@ -41,7 +43,7 @@ const Profile = () => {
     let parsedUser;
     if (userData) {
       parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
+      // setUser(parsedUser);
     }
 
     const fetchUserDetails = async () => {
@@ -50,8 +52,9 @@ const Profile = () => {
         if (users.statusCode === 201) {
           const person = users.data.find((u) => u.email === parsedUser?.email);
           if (person) {
-            setUserData(person);
             setFormData({
+              id:
+                person.id || Math.floor(1000 + Math.random() * 9000).toString(),
               name: person.name || "",
               email: person.email || "",
               phone: person.phone || "",
@@ -95,41 +98,17 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/users/${userData.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...userData,
-            ...debouncedFormData,
-            profile: selectedAvatar || userData.person,
-          }),
-        }
-      );
-      if (response.ok) {
-        setUserData({ ...userData, ...debouncedFormData });
+      const response = await changeUserData(debouncedFormData);
+      if (response.statusCode === 201) {
         setIsEditing(false);
         setnavbarIMg(!navbarImg);
+        toast.success("User Information updated successfully!");
       }
 
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          ...userData,
-          ...formData,
-          profile: selectedAvatar || userData.person,
-        })
-      );
+      localStorage.setItem("userData", JSON.stringify({ ...debouncedFormData }));
     } catch (error) {
-      toast.error(`${error}`);
+      toast.error(`Failed to update user role! ${error} `);
     }
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
   };
 
   const handleAvatarSelectorOpen = () => {
@@ -142,10 +121,11 @@ const Profile = () => {
 
   const handleAvatarSelection = (keyword) => {
     setSelectedAvatar(keyword);
+    setFormData({ ...formData, profile: keyword });
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoaderModal />}>
       <Navbar profilepic={navbarImg} />
       <div className="flex flex-col lg:flex-row items-center border justify-center min-h-[70%] gap-6 p-6">
         <motion.div
@@ -157,7 +137,7 @@ const Profile = () => {
             <div className="flex items-center space-x-4 ">
               <div className="relative flex items-center justify-center bg-red-600 text-white text-2xl font-bold rounded-full">
                 <ProfileAvatar
-                  keyword={selectedAvatar || userData?.profile}
+                  keyword={selectedAvatar || formData?.profile}
                   width="150px"
                   height="150px"
                 />
@@ -238,7 +218,8 @@ const Profile = () => {
                       <strong>Bus ID:</strong> {booking.busId || "N/A"}
                     </p>
                     <p>
-                      <strong>Seat(s):</strong> {booking.seatno?.join(", ") || "N/A"}
+                      <strong>Seat(s):</strong>{" "}
+                      {booking.seatno?.join(", ") || "N/A"}
                     </p>
                     <p>
                       <strong>Date:</strong> {booking.date || "N/A"}
@@ -250,22 +231,28 @@ const Profile = () => {
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                       <p>
-                        <strong>Name:</strong> {booking.userDetails?.name || "N/A"}
+                        <strong>Name:</strong>{" "}
+                        {booking.userDetails?.name || "N/A"}
                       </p>
                       <p>
-                        <strong>Age:</strong> {booking.userDetails?.age || "N/A"}
+                        <strong>Age:</strong>{" "}
+                        {booking.userDetails?.age || "N/A"}
                       </p>
                       <p>
-                        <strong>Gender:</strong> {booking.userDetails?.gender || "N/A"}
+                        <strong>Gender:</strong>{" "}
+                        {booking.userDetails?.gender || "N/A"}
                       </p>
                       <p>
-                        <strong>Aadhaar:</strong> {booking.userDetails?.adhaarCardNo || "N/A"}
+                        <strong>Aadhaar:</strong>{" "}
+                        {booking.userDetails?.adhaarCardNo || "N/A"}
                       </p>
                       <p>
-                        <strong>Phone:</strong> {booking.userDetails?.phoneNumber || "N/A"}
+                        <strong>Phone:</strong>{" "}
+                        {booking.userDetails?.phoneNumber || "N/A"}
                       </p>
                       <p>
-                        <strong>Email:</strong> {booking.userDetails?.email || "N/A"}
+                        <strong>Email:</strong>{" "}
+                        {booking.userDetails?.email || "N/A"}
                       </p>
                     </div>
                   </div>
@@ -303,7 +290,10 @@ const Profile = () => {
         </div>
 
         <Suspense fallback={<div>Loading Avatar Selector...</div>}>
-          <ModalUtil isOpen={isAvatarSelectorOpen} onClose={handleAvatarSelectorClose}>
+          <ModalUtil
+            isOpen={isAvatarSelectorOpen}
+            onClose={handleAvatarSelectorClose}
+          >
             <ProfileSelector onSelectAvatar={handleAvatarSelection} />
           </ModalUtil>
         </Suspense>
