@@ -1,79 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import busImage from "../images/bus1.png";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { createNewBus } from "../services/buses";
 
 const BusServiceForm = ({ onClose, fetchbuses }) => {
   const [busName, setBusName] = useState("");
   const [busRoute, setBusRoute] = useState("");
-  const [busList, setBusList] = useState([]);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    const fetchBuses = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/buses");
-        if (response.ok) {
-          const buses = await response.json();
-          setBusList(buses);
-        } else {
-          console.error("Failed to fetch buses.");
-        }
-      } catch (error) {
-        console.error("Error fetching buses:", error);
-      }
-    };
-    fetchBuses();
-  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validate form inputs
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    const newBusData = {
-        id: (Math.floor(1000 + Math.random() * 9000)).toString(),
-        name: busName,
-        route: busRoute,
-        UpperSeats: generateSeats("U"),
-        LowerSeats: generateSeats("L"),
-      };
-      
-
-    handleCreateNewBus(newBusData);
-    setBusName("");
-    setBusRoute("");
-    onClose();
-    fetchbuses();
-  };
-
-  // Form validation with real-time feedback on blur (when field loses focus)
-  const validateForm = () => {
-    const validationErrors = {};
-  
-    // Bus name can contain letters, numbers, space, hyphen, and slash
-    if (!busName.trim()) {
-      validationErrors.busName = "Bus name is required.";
-    } else if (/[^a-zA-Z0-9\s/-]/g.test(busName)) {
-      validationErrors.busName = "Bus name should only contain letters, numbers, spaces, hyphens, or slashes.";
-    }
-  
-    // Bus route can contain letters, numbers, space, hyphen, and slash
-    if (!busRoute.trim()) {
-      validationErrors.busRoute = "Bus route is required.";
-    } else if (/[^a-zA-Z0-9\s/-]/g.test(busRoute)) {
-      validationErrors.busRoute = "Bus route should only contain letters, numbers, spaces, hyphens, or slashes.";
-    }
-  
-    return validationErrors;
-  };
-  
 
   const generateSeats = (prefix) => {
     const seats = [];
@@ -87,25 +23,62 @@ const BusServiceForm = ({ onClose, fetchbuses }) => {
     return seats;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    handleCreateNewBus(newBusData);
+    setBusName("");
+    setBusRoute("");
+    onClose();
+    fetchbuses();
+  };
+
+  const validateForm = () => {
+    let validationErrors = {};
+
+    if (!busName.trim()) {
+      validationErrors.busName = "Bus name is required.";
+    } else if (/[^a-zA-Z0-9\s/-]/g.test(busName)) {
+      validationErrors.busName =
+        "Bus name should only contain letters, numbers, spaces, hyphens, or slashes.";
+    }
+
+    if (!busRoute.trim()) {
+      validationErrors.busRoute = "Bus route is required.";
+    } else if (/[^a-zA-Z0-9\s/-]/g.test(busRoute)) {
+      validationErrors.busRoute =
+        "Bus route should only contain letters, numbers, spaces, hyphens, or slashes.";
+    }
+
+    return validationErrors;
+  };
+
+  const newBusData = {
+    id: Math.floor(1000 + Math.random() * 9000).toString(),
+    name: busName,
+    route: busRoute,
+    UpperSeats: generateSeats("U"),
+    LowerSeats: generateSeats("L"),
+  };
+
   const handleCreateNewBus = async (busData) => {
     try {
-        console.log(busData, "data before creating bus");
-        const response = await axios.post("http://localhost:5000/buses", busData, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (response.status === 201 || response.status === 200) {
-            toast.success(`${busData.name} created successfully!`);
-        } else {
-            toast.error("Failed to create a new bus.");
-        }
+      const response = await createNewBus(busData);
+      
+      if (response.status === 201 ) {
+       
+        toast.success(`${busData.name} created successfully!`);
+      } else {
+        toast.error("Failed to create a new bus.");
+      }
     } catch (error) {
-        toast.error("Error while creating a new bus: " + error.message);
+      toast.error("Error while creating a new bus: " + error.message);
     }
-};
-
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

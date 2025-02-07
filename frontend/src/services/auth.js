@@ -1,14 +1,16 @@
 import axios from 'axios';
+import { BaseURL } from './baseURL';
 
-const API_URL = "http://localhost:5000/users";
+const API_URL = `${BaseURL}/users`;
 
 
-export const loginfunction = async ({ email, password }) => {
+export const loginfunction = async (formdata ) => {
   try {
+    console.log("login api ",formdata.email)
     const response = await axios.get(API_URL);
     const users = response.data;
     const user = users.find(
-      (u) => u.email === email && u.password === password
+      (u) => u.email === formdata?.email && u.password === formdata?.password
     );
     return user || null;
   } catch (error) {
@@ -18,11 +20,9 @@ export const loginfunction = async ({ email, password }) => {
 };
 
 
-export const signUpFunction = async ({ newUser }) => {
+export const signUpFunction = async ({formdata}) => {
   try {
-    console.log(newUser, "new user data from the auth services");
-
-    const addUserResponse = await axios.post(API_URL, newUser, {
+    const addUserResponse = await axios.post(API_URL, formdata, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,7 +30,6 @@ export const signUpFunction = async ({ newUser }) => {
 
     return addUserResponse.status === 201;
   } catch (error) {
-    console.error("Sign-up Error:", error);
     return error;
   }
 };

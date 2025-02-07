@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, lazy,Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo_new.png";
 import { motion } from "framer-motion";
-import ProfileAvatar from "./ProfileAvatar";
+import LoaderModal from "./Loader";
+// import ProfileAvatar from "./ProfileAvatar";
+
+const ProfileAvatar = lazy(()=>import('./ProfileAvatar'));
 
 const Navbar = ({ profilepic }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +27,7 @@ const Navbar = ({ profilepic }) => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userData");
     setUserLoggedIn(false);
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -56,6 +59,8 @@ const Navbar = ({ profilepic }) => {
   }, [isDropdownOpen]);
 
   return (
+    <Suspense fallback={<LoaderModal/>}>
+
     <nav className="bg-red-600 border-b-4 border-yellow-400 p-4 flex justify-between items-center shadow-md relative z-10">
       <Link to="/" className="flex items-center">
         <img src={logo} alt="BookYatri Logo" className="h-10" />
@@ -160,6 +165,8 @@ const Navbar = ({ profilepic }) => {
         </motion.div>
       </div>
     </nav>
+    </Suspense>
+
   );
 };
 

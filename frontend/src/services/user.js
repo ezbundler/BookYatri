@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BaseURL } from "./baseURL";
 
 
-const API_URL = "http://localhost:5000/users";
+const API_URL = `${BaseURL}/users`;
 
 
 export const checkUserPresent = async ({ email }) => {
@@ -12,7 +13,6 @@ export const checkUserPresent = async ({ email }) => {
     const existingUser = users.find((u) => u.email === email);
     return !!existingUser;
   } catch (error) {
-    console.error("Error checking user presence:", error);
     return error;
   }
 };
@@ -30,16 +30,16 @@ export const fetchUser = async () => {
       statusCode: 401,
       error: error.message,
     };
-    console.error("Error fetching users:", res);
+   
     return res;
   }
 };
 
-export const changeUserRole = async({updatedUser})=>{
+export const changeUserData = async(updatedUser)=>{
     try { 
         // console.log(updatedUser.id);
         const response = await fetch(
-            `http://localhost:5000/users/${updatedUser.id}`,
+            `${API_URL}/${updatedUser.id}`,
             {
               method: "PUT",
               headers: {
@@ -67,6 +67,6 @@ export const fetchPaginatedUsers = async (page, limit = 5) => {
   const { data, headers } = await axios.get(`${API_URL}?_page=${page}&_limit=${limit}`);
   return {
     data,
-    total: parseInt(headers["x-total-count"]), // Extract total users from header
+    total: parseInt(headers["x-total-count"]), 
   };
 };

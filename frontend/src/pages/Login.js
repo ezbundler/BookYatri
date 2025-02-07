@@ -1,75 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt from "jwt-encode";
-import Navbar from "../components/Navbar";
 import { loginfunction } from "../services/auth";
 import { toast } from "react-toastify";
-import Button from "../utils.js/button";
-import { useDebounce } from "../utils.js/debounceHook";
-import LoaderModal from "../components/Loader";
+
+
+const Navbar = React.lazy(() => import("../components/Navbar"));
+const LoaderModal = React.lazy(() => import("../components/Loader"));
+const Button = React.lazy(() => import("../utils.js/button"));
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({ email: false, password: false });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const debouncedEmail = useDebounce(email, 2000);
-  const debouncedPassword = useDebounce(password, 2000);
 
-  useEffect(() => {
-    if (touched.email) validateEmail(debouncedEmail);
-    if (touched.password) validatePassword(debouncedPassword);
-    console.log(debouncedPassword,"debonce");
-  }, [debouncedEmail, debouncedPassword]);
-
-  const validateEmail = (email) => {
-    if (!email) {
-      setErrors((prev) => ({ ...prev, email: "Email cannot be empty." }));
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrors((prev) => ({ ...prev, email: "Please enter a valid email." }));
-    } else {
-      setErrors((prev) => ({ ...prev, email: "" }));
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.email) {
+      newErrors.email = "Email cannot be empty.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email.";
     }
+    if (!formData.password) {
+      newErrors.password = "Password cannot be empty.";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const validatePassword = (password) => {
-    if (!password) {
-      setErrors((prev) => ({ ...prev, password: "Password cannot be empty." }));
-    } else if (password.length < 6) {
-      setErrors((prev) => ({
-        ...prev,
-        password: "Password must be at least 6 characters long.",
-      }));
-    } else {
-      setErrors((prev) => ({ ...prev, password: "" }));
-    }
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (Object.values(errors).some((error) => error !== "") || !email || !password) {
+    if (!validateForm()) {
       toast.error("Please fix validation errors.");
-      setLoading(false);
       return;
     }
 
-    const user = true
+    setLoading(true);
+    const user = await loginfunction(formData);
 
     if (user) {
       const payload = {
         email: user.email,
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
       };
-      const secretKey = "your-secret-key";
+      const secretKey = process.env.REACT_APP_JWT_SECRET || "fallback-secret";
       const token = jwt(payload, secretKey);
       localStorage.setItem("authToken", token);
       localStorage.setItem("userData", JSON.stringify(user));
       toast.success("Logged In Successfully!");
-      navigate(`/home`);
+      navigate("/home");
     } else {
       toast.error("Invalid email or password");
     }
@@ -79,8 +65,14 @@ const LoginPage = () => {
 
   return (
     <>
-      {loading && <LoaderModal />}
-      <Navbar />
+      {loading && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoaderModal />
+        </Suspense>
+      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navbar />
+      </Suspense>
       <div className="min-h-screen flex flex-col items-center justify-center">
         <h2 className="text-3xl font-bold mb-4 text-red-600">Login</h2>
         <form className="space-y-4 w-80" onSubmit={handleLogin}>
@@ -88,18 +80,15 @@ const LoginPage = () => {
           <div>
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className={`p-2 border rounded w-full ${
-                errors.email && touched.email ? "border-red-500" : ""
+                errors.email ? "border-red-500" : ""
               }`}
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                validateEmail(e.target.value);
-              }}
-              onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && touched.email && (
+            {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             )}
           </div>
@@ -108,29 +97,27 @@ const LoginPage = () => {
           <div>
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className={`p-2 border rounded w-full ${
-                errors.password && touched.password ? "border-red-500" : ""
+                errors.password ? "border-red-500" : ""
               }`}
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                // console.log(e.target.value, "gr");
-                validatePassword(e.target.value);
-              }}
-              onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+              value={formData.password}
+              onChange={handleChange}
             />
-            {errors.password && touched.password && (
+            {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
           </div>
 
-          <Button
-            type="submit"
-            title={loading ? "Logging in..." : "Login"}
-            disabled={loading}
-            className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Button
+              type="submit"
+              title={loading ? "Logging in..." : "Login"}
+              disabled={loading}
+              className="bg-red-600 text-white p-2 rounded w-full hover:bg-yellow-400"
+            />
+          </Suspense>
         </form>
         <div className="mt-2 text-black">
           <p>
