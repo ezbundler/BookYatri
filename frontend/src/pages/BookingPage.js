@@ -8,8 +8,9 @@ import DatePickerComponent from "../components/DatePicker";
 import { toast } from "react-toastify";
 import UserForm from "../components/BookingForm";
 import BookingForm from "../components/BookingForm";
-import { fetchAllBooking, fetchbusById, seatBooking } from "../services/buses";
+import {  fetchbusById } from "../services/buses";
 import Button from "../utils.js/button";
+import { fetchAllBooking, seatBooking } from "../services/bookings";
 
 const SeatBooking = () => {
   const { id } = useParams();

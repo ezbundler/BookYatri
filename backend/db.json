@@ -6,18 +6,17 @@
       "email": "john@example.com",
       "password": "password123",
       "phone": "123456789",
-      "role": "admin"
+      "role": "user"
     },
     {
       "id": "2",
-      "name": "akash",
+      "name": "akash ",
       "email": "akash@gmail.com",
       "password": "admin@1234",
       "phone": "8235552552",
-      "age": "23",
-      "role": "admin",
+      "age": "25",
       "address": "n-312, Malwa County Indore",
-      "profile": "formalMale4"
+      "profile": "backpacker2"
     },
     {
       "id": "3",
@@ -25,7 +24,7 @@
       "email": "test@mail.com",
       "password": "123456",
       "phone": "7899456810",
-      "role": "admin"
+      "role": "user"
     },
     {
       "id": "4",
@@ -141,12 +140,37 @@
       "email": "test11@mail.com",
       "password": "123456",
       "role": "admin"
+    },
+    {
+      "id": "9061",
+      "name": "shiv",
+      "email": "shiv@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "phone": "",
+      "age": "",
+      "address": "",
+      "profile": "formalMale1"
+    },
+    {
+      "id": "6638",
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "1189",
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "password": "123456",
+      "role": "admin"
     }
   ],
   "buses": [
     {
       "id": "1",
-      "name": "indb-Bhopal Expressmn",
+      "name": "Indore-Bhopal Express",
       "route": "Indore to Bhopal",
       "UpperSeats": [
         {
@@ -643,19 +667,19 @@
       ]
     },
     {
-      "id": "5561",
-      "name": "INDB-JPJ Roadways",
-      "route": "Indore to Jaipur",
+      "id": "4984",
+      "name": "Indb-Delhi Express",
+      "route": "indore to delhi ",
       "UpperSeats": [
         {
           "name": "U1",
           "side": "left",
-          "booked": true
+          "booked": false
         },
         {
           "name": "U2",
           "side": "left",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U3",
@@ -665,7 +689,7 @@
         {
           "name": "U4",
           "side": "left",
-          "booked": true
+          "booked": false
         },
         {
           "name": "U5",
@@ -675,7 +699,7 @@
         {
           "name": "U6",
           "side": "left",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U7",
@@ -685,27 +709,27 @@
         {
           "name": "U8",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U9",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "U10",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U11",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U12",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U13",
@@ -720,12 +744,12 @@
         {
           "name": "U15",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U16",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U17",
@@ -735,7 +759,7 @@
         {
           "name": "U18",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "U19",
@@ -755,7 +779,7 @@
         {
           "name": "U22",
           "side": "right",
-          "booked": false
+          "booked": true
         },
         {
           "name": "U23",
@@ -765,7 +789,7 @@
         {
           "name": "U24",
           "side": "right",
-          "booked": false
+          "booked": true
         }
       ],
       "LowerSeats": [
@@ -802,7 +826,7 @@
         {
           "name": "L7",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L8",
@@ -812,22 +836,22 @@
         {
           "name": "L9",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L10",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L11",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L12",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L13",
@@ -862,7 +886,7 @@
         {
           "name": "L19",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L20",
@@ -872,7 +896,7 @@
         {
           "name": "L21",
           "side": "right",
-          "booked": true
+          "booked": false
         },
         {
           "name": "L22",
@@ -887,13 +911,13 @@
         {
           "name": "L24",
           "side": "right",
-          "booked": false
+          "booked": true
         }
       ]
     }
   ],
   "bookings": [
-        {
+    {
       "id": "6878",
       "useremail": "akash@gmail.com",
       "seatno": [
@@ -975,7 +999,63 @@
           "email": "akash@gmail.com"
         }
       }
+    },
+    {
+      "id": "6476",
+      "useremail": "shiv@gmail.com",
+      "seatno": [
+        "U7",
+        "U15",
+        "U19"
+      ],
+      "busId": "1",
+      "date": "11/02/2025",
+      "userDetails": {
+        "person1": {
+          "name": "akash chaudhary",
+          "age": "25",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "akash@gmail.com"
+        },
+        "person2": {
+          "name": "Ronit roy",
+          "age": "28",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "ronit@gmail.com"
+        },
+        "person3": {
+          "name": "vaibhav singh",
+          "age": "25",
+          "gender": "Male",
+          "adhaarCardNo": "123456789101",
+          "phoneNumber": "1234567890",
+          "email": "aaaaaa@gmail.com"
+        }
+      }
+    },
+    {
+      "id": "2155",
+      "useremail": "test@mail.com",
+      "seatno": [
+        "U10"
+      ],
+      "busId": "1",
+      "date": "13/02/2025",
+      "userDetails": {}
+    },
+    {
+      "id": "7443",
+      "useremail": "test@mail.com",
+      "seatno": [
+        "U10"
+      ],
+      "busId": "1",
+      "date": "14/02/2025",
+      "userDetails": {}
     }
-  
   ]
 }
